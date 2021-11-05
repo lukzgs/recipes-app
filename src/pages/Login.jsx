@@ -35,7 +35,7 @@ export default function Login() {
           data-testid="login-submit-btn"
           disabled={
             password.length <= CARACTER_MIN
-              || email.search(VALIDATE_EMAIL) !== 0
+            || email.search(VALIDATE_EMAIL) !== 0
           }
         >
           Enviar
