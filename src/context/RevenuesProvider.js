@@ -1,9 +1,18 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 import RevenuesContex from './RevenuesContex';
 
 function RevenuesProvider({ children }) {
-  const value = {};
+  const [responseDrink, setResponseDrink] = useState([]);
+  const [responseFood, setResponseFood] = useState([]);
+
+  const value = {
+    responseDrink,
+    responseFood,
+    setResponseDrink,
+    setResponseFood,
+  };
+
   return (
     <RevenuesContex.Provider value={ value }>
       {children}

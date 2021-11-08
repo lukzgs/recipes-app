@@ -2,13 +2,13 @@ const NAME = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 const FIRST_LETTER = 'https://www.themealdb.com/api/json/v1/1/search.php?f=';
 const INGREDIENT = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
 
-export const SearchFood = async (api) => {
+const SearchFood = async (api) => {
   const result = await fetch(api);
   const resultJson = await result.json();
   return resultJson;
 };
 
-export const switchRadios = (radios, value) => {
+const switchFood = (radios, value) => {
   switch (radios) {
   case 'ingredient':
     SearchFood(`${INGREDIENT}${value}`);
@@ -23,3 +23,5 @@ export const switchRadios = (radios, value) => {
     break;
   }
 };
+
+export default switchFood;

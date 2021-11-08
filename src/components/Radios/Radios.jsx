@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { switchRadios } from '../../services/SeachFood';
+import switchFood from '../../services/SeachFood';
+import switchDrink from '../../services/SeachDrink';
 
 function Radios({ value }) {
   const [name, setName] = useState('');
+  const history = useHistory();
+  const { location: { pathname } } = history;
 
   const handleClick = () => {
     if (name === 'first-letter' && value.length > 1) {
       return global.alert('Sua busca deve conter somente 1 (um) caracter');
     }
-    switchRadios(name, value);
+    return pathname === '/comidas' ? switchFood(name, value) : switchDrink(name, value);
   };
 
   return (
