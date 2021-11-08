@@ -2,9 +2,9 @@ import React from 'react';
 
 function FoodInProgress() {
   return (
-    <div>
+    <h1>
       FoodInProgress
-    </div>
+    </h1>
   );
 }
 
