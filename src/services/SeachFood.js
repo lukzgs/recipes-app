@@ -1,6 +1,6 @@
-const NAME = 'www.themealdb.com/api/json/v1/1/search.php?s=';
-const FIRST_LETTER = 'www.themealdb.com/api/json/v1/1/search.php?f=';
-const INGREDIENT = 'www.themealdb.com/api/json/v1/1/filter.php?i=';
+const NAME = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+const FIRST_LETTER = 'https://www.themealdb.com/api/json/v1/1/search.php?f=';
+const INGREDIENT = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
 
 export const SearchFood = async (api) => {
   const result = await fetch(api);

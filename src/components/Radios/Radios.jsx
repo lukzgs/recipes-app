@@ -5,13 +5,12 @@ import { switchRadios } from '../../services/SeachFood';
 
 function Radios({ value }) {
   const [name, setName] = useState('');
-  // const alert = useAlert();
 
   const handleClick = () => {
-    if (name === 'first-letter'
-    && value.length > 1) alert('Sua busca deve conter somente 1 (um) caracter');
+    if (name === 'first-letter' && value.length > 1) {
+      return global.alert('Sua busca deve conter somente 1 (um) caracter');
+    }
     switchRadios(name, value);
-    console.log(value);
   };
 
   return (
