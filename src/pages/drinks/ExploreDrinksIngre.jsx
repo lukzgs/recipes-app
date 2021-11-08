@@ -5,7 +5,7 @@ function ExploreDrinksIngre() {
   return (
     <div>
       <Header title="Explorar Ingredientes" />
-      ExploreDrinksIngre
+      <h1>ExploreDrinksIngre</h1>
     </div>
   );
 }

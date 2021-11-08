@@ -5,7 +5,7 @@ function Explore() {
   return (
     <div>
       <Header title="Explorar" />
-      Explore
+      <h1>Explore</h1>
     </div>
   );
 }

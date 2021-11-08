@@ -5,7 +5,7 @@ function RecipesMade() {
   return (
     <div>
       <Header title="Receitas Feitas" />
-      RecipesMade
+      <h1>RecipesMade</h1>
     </div>
   );
 }

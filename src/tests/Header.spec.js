@@ -123,9 +123,14 @@ describe('Teste do Header', () => {
     const searchBtn = screen.getByTestId(SEARCH_TOP_BTN);
 
     expect(searchBtn).toBeInTheDocument();
-    userEvent.click(searchBtn);
 
+    userEvent.click(searchBtn);
     const inputSearch = screen.getByTestId('search-input');
+
     expect(inputSearch).toBeInTheDocument();
+
+    // userEvent.click(searchBtn);
+
+    // expect(inputSearch).not.toBeInTheDocument();
   });
 });

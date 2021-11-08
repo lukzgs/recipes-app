@@ -5,7 +5,7 @@ function Drinks() {
   return (
     <div>
       <Header title="Bebidas" />
-      Drinks
+      <h1>Drinks</h1>
     </div>
   );
 }

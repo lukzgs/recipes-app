@@ -5,7 +5,7 @@ function ExploreAreaFood() {
   return (
     <div>
       <Header title="Explorar Origem" />
-      ExploreAreaFood
+      <h1>ExploreAreaFood</h1>
     </div>
   );
 }
