@@ -26,6 +26,7 @@ describe('Testes da pagina de login', () => {
     render(<Login />);
 
     const inputEmail = screen.getByTestId(ID_EMAIL);
+    expect(inputEmail).toBeInTheDocument();
 
     userEvent.type(inputEmail, 'email');
     expect(inputEmail.value).toBe('email');
@@ -35,6 +36,7 @@ describe('Testes da pagina de login', () => {
     render(<Login />);
 
     const inputPassword = screen.getByTestId(ID_PASSWORD);
+    expect(inputPassword).toBeInTheDocument();
 
     userEvent.type(inputPassword, '12345');
     expect(inputPassword.value).toBe('12345');
@@ -47,6 +49,10 @@ describe('Testes da pagina de login', () => {
     const inputEmail = screen.getByTestId(ID_EMAIL);
     const inputPassword = screen.getByTestId(ID_PASSWORD);
     const btn = screen.getByTestId(ID_BTN);
+
+    expect(inputEmail).toBeInTheDocument();
+    expect(inputPassword).toBeInTheDocument();
+    expect(btn).toBeInTheDocument();
 
     userEvent.type(inputEmail, 'email');
     userEvent.type(inputPassword, '1234567');
@@ -68,6 +74,10 @@ describe('Testes da pagina de login', () => {
     const inputPassword = screen.getByTestId(ID_PASSWORD);
     const btn = screen.getByTestId(ID_BTN);
 
+    expect(inputEmail).toBeInTheDocument();
+    expect(inputPassword).toBeInTheDocument();
+    expect(btn).toBeInTheDocument();
+
     userEvent.type(inputEmail, EMAIL_VALIDAD);
     userEvent.type(inputPassword, '1234567');
     userEvent.click(btn);
@@ -83,6 +93,10 @@ describe('Testes da pagina de login', () => {
     const inputEmail = screen.getByTestId(ID_EMAIL);
     const inputPassword = screen.getByTestId(ID_PASSWORD);
     const btn = screen.getByTestId(ID_BTN);
+
+    expect(inputEmail).toBeInTheDocument();
+    expect(inputPassword).toBeInTheDocument();
+    expect(btn).toBeInTheDocument();
 
     userEvent.type(inputEmail, EMAIL_VALIDAD);
     userEvent.type(inputPassword, '1234567');
@@ -100,6 +114,10 @@ describe('Testes da pagina de login', () => {
     const inputPassword = screen.getByTestId(ID_PASSWORD);
     const btn = screen.getByTestId(ID_BTN);
 
+    expect(inputEmail).toBeInTheDocument();
+    expect(inputPassword).toBeInTheDocument();
+    expect(btn).toBeInTheDocument();
+
     userEvent.type(inputEmail, EMAIL_VALIDAD);
     userEvent.type(inputPassword, '1234567');
     userEvent.click(btn);
@@ -115,6 +133,10 @@ describe('Testes da pagina de login', () => {
     const inputEmail = screen.getByTestId(ID_EMAIL);
     const inputPassword = screen.getByTestId(ID_PASSWORD);
     const btn = screen.getByTestId(ID_BTN);
+
+    expect(inputEmail).toBeInTheDocument();
+    expect(inputPassword).toBeInTheDocument();
+    expect(btn).toBeInTheDocument();
 
     userEvent.type(inputEmail, EMAIL_VALIDAD);
     userEvent.type(inputPassword, '1234567');
