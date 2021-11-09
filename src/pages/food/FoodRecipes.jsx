@@ -1,6 +1,11 @@
 import React from 'react';
+import { SearchFood } from '../../services/SearchFood';
 
 function FoodRecipes() {
+  useEffect(() => {
+    SearchFood('https://www.themealdb.com/api/json/v1/1/lookup.php?i=52771');
+  }, []);
+
   return (
     <main>
       <img src="" alt="" data-testid="recipe-photo" />

@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { SearchDrink } from '../../services/SearchDrink';
 
 function DrinksRecipes() {
+  useEffect(() => {
+    SearchDrink('https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=178319');
+  }, []);
+
   return (
     <main>
       <img src="" alt="" data-testid="recipe-photo" />
