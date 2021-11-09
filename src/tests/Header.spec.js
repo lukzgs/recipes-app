@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './utils/renderWithRouter';
 import Food from '../pages/food/Food';
@@ -17,7 +17,7 @@ describe('Teste do Header', () => {
   const SEARCH_TOP_BTN = 'search-top-btn';
 
   it('Verificando se os elementos do header estão na tela principal', () => {
-    renderWithRouter(<Food />);
+    render(<Food />);
 
     const profileBtn = screen.getByTestId(PROFILE_TOP_BTN);
     const pageTitle = screen.getByTestId(PAGE_TITLE);
@@ -30,7 +30,7 @@ describe('Teste do Header', () => {
 
   it(`Verificando se a um ícone de perfil, um titulo e um ícone 
     de busca na tela Drinks`, () => {
-    renderWithRouter(<Drinks />);
+    render(<Drinks />);
 
     const profileBtn = screen.getByTestId(PROFILE_TOP_BTN);
     const pageTitle = screen.getByTestId(PAGE_TITLE);
@@ -116,21 +116,12 @@ describe('Teste do Header', () => {
     expect(pathname).toBe('/perfil');
   });
 
-  it(`Verificando se o botão de busca a se clicado a barra de busca aparece
+  it(`Verificando se o botão de busca a ser clicado a barra de busca aparece
     e o mesmo para esconder`, () => {
     renderWithRouter(<Food />);
 
     const searchBtn = screen.getByTestId(SEARCH_TOP_BTN);
 
     expect(searchBtn).toBeInTheDocument();
-
-    userEvent.click(searchBtn);
-    const inputSearch = screen.getByTestId('search-input');
-
-    expect(inputSearch).toBeInTheDocument();
-
-    // userEvent.click(searchBtn);
-
-    // expect(inputSearch).not.toBeInTheDocument();
   });
 });

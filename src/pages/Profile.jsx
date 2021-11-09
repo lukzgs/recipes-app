@@ -8,7 +8,6 @@ function Profile() {
       <Header title="Perfil" />
       <h1>Profile</h1>
       <Footer />
-
     </div>
   );
 }
