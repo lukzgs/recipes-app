@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 import RevenuesContex from './RevenuesContex';
 
 function RevenuesProvider({ children }) {
-  const [reve, setReve] = useState([]);
+  const [revenues, setRevenues] = useState([]);
 
   const value = {
-    reve,
-    setReve,
+    revenues,
+    setRevenues,
   };
 
   return (

@@ -10,20 +10,20 @@ function Radios({ value }) {
 
   const history = useHistory();
 
-  const { setReve, reve } = useContext(RevenuesContex);
+  const { setRevenues, revenues } = useContext(RevenuesContex);
 
   const { location: { pathname } } = history;
 
   useEffect(() => {
     if (pathname === '/comidas') {
-      return reve.length === 1
-        ? history.push(`/comidas/${reve[0].idMeal}`) : undefined;
+      return revenues.length === 1
+        ? history.push(`/comidas/${revenues[0].idMeal}`) : undefined;
     }
     if (pathname === '/bebidas') {
-      return reve.length === 1
-        ? history.push(`/bebidas/${reve[0].idDrink}`) : undefined;
+      return revenues.length === 1
+        ? history.push(`/bebidas/${revenues[0].idDrink}`) : undefined;
     }
-  }, [history, reve, pathname]);
+  }, [history, revenues, pathname]);
 
   const handleClick = async () => {
     if (name === 'first-letter' && value.length > 1) {
@@ -34,8 +34,8 @@ function Radios({ value }) {
       ? await SwitchFood(name, value)
       : await SwitchDrink(name, value);
 
-    if (pathname === '/comidas') await setReve(response.meals);
-    if (pathname === '/bebidas') await setReve(response.drinks);
+    if (pathname === '/comidas') await setRevenues(response.meals);
+    if (pathname === '/bebidas') await setRevenues(response.drinks);
   };
 
   return (
