@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 function Explore() {
   return (
     <div>
-      <Header title="Explorar" />
+      <Header />
       <h1>Explore</h1>
       <Footer data-testid="explore-bottom-btn" />
     </div>

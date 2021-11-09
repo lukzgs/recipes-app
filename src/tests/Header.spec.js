@@ -129,8 +129,8 @@ describe('Teste do Header', () => {
 
     expect(inputSearch).toBeInTheDocument();
 
-    // userEvent.click(searchBtn);
+    userEvent.click(searchBtn);
 
-    // expect(inputSearch).not.toBeInTheDocument();
+    expect(inputSearch).not.toBeInTheDocument();
   });
 });
