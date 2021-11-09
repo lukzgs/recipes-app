@@ -9,7 +9,7 @@ function Header({ title }) {
   const [search, setSearch] = useState(true);
   const [change, setChange] = useState('');
 
-  if (title === 'Comidas' || title === 'Bebidas' || title.includes('Origem')) {
+  if (title === 'Comidas' || title === 'Bebidas' || title === 'Explorar Origem') {
     if (search === true) {
       return (
         <header>
