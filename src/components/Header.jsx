@@ -3,11 +3,13 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import Radios from './Radios/Radios';
 
 function Header({ title }) {
   const [search, setSearch] = useState(true);
+  const [change, setChange] = useState('');
 
-  if (title === 'Comidas' || title === 'Bebidas' || title.includes('Origem')) {
+  if (title === 'Comidas' || title === 'Bebidas' || title === 'Explorar Origem') {
     if (search === true) {
       return (
         <header>
@@ -43,7 +45,10 @@ function Header({ title }) {
           type="text"
           name="search"
           id="search"
+          value={ change }
+          onChange={ (e) => setChange(e.target.value) }
         />
+        <Radios value={ change } />
       </header>
     );
   }

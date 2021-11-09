@@ -8,7 +8,6 @@ function ExploreDrinksIngre() {
       <Header title="Explorar Ingredientes" />
       <h1>ExploreDrinksIngre</h1>
       <Footer />
-
     </div>
   );
 }
