@@ -1,20 +1,41 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-
-import switchFood from '../../services/SeachFood';
-import switchDrink from '../../services/SeachDrink';
+import { useHistory } from 'react-router-dom';
+import { SwitchFood } from '../../services/SearchFood';
+import { SwitchDrink } from '../../services/SwitchDrink';
+import RevenuesContex from '../../context/RevenuesContex';
 
 function Radios({ value }) {
   const [name, setName] = useState('');
+
   const history = useHistory();
+
+  const { setReve, reve } = useContext(RevenuesContex);
+
   const { location: { pathname } } = history;
 
-  const handleClick = () => {
+  useEffect(() => {
+    if (pathname === '/comidas') {
+      return reve.length === 1
+        ? history.push(`/comidas/${reve[0].idMeal}`) : undefined;
+    }
+    if (pathname === '/bebidas') {
+      return reve.length === 1
+        ? history.push(`/bebidas/${reve[0].idDrink}`) : undefined;
+    }
+  }, [history, reve, pathname]);
+
+  const handleClick = async () => {
     if (name === 'first-letter' && value.length > 1) {
       return global.alert('Sua busca deve conter somente 1 (um) caracter');
     }
-    return pathname === '/comidas' ? switchFood(name, value) : switchDrink(name, value);
+
+    const response = pathname === '/comidas'
+      ? await SwitchFood(name, value)
+      : await SwitchDrink(name, value);
+
+    if (pathname === '/comidas') await setReve(response.meals);
+    if (pathname === '/bebidas') await setReve(response.drinks);
   };
 
   return (

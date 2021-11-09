@@ -2,26 +2,21 @@ const NAME = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 const FIRST_LETTER = 'https://www.themealdb.com/api/json/v1/1/search.php?f=';
 const INGREDIENT = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
 
-const SearchFood = async (api) => {
+export const SearchFood = async (api) => {
   const result = await fetch(api);
   const resultJson = await result.json();
   return resultJson;
 };
 
-const switchFood = (radios, value) => {
+export const SwitchFood = (radios, value) => {
   switch (radios) {
   case 'ingredient':
-    SearchFood(`${INGREDIENT}${value}`);
-    break;
+    return SearchFood(`${INGREDIENT}${value}`);
   case 'name':
-    SearchFood(`${NAME}${value.split(' ').splice('_')}`);
-    break;
+    return SearchFood(`${NAME}${value.split(' ').splice('_')}`);
   case 'first-letter':
-    SearchFood(`${FIRST_LETTER}${value}`);
-    break;
+    return SearchFood(`${FIRST_LETTER}${value}`);
   default:
     break;
   }
 };
-
-export default switchFood;
