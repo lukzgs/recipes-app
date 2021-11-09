@@ -34,8 +34,21 @@ function Radios({ value }) {
       ? await SwitchFood(name, value)
       : await SwitchDrink(name, value);
 
-    if (pathname === '/comidas') await setRevenues(response.meals);
-    if (pathname === '/bebidas') await setRevenues(response.drinks);
+    if (pathname === '/comidas') {
+      if (response.meals === null) {
+        return global
+          .alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      }
+      await setRevenues(response.meals);
+    }
+
+    if (pathname === '/bebidas') {
+      if (response.drinks === null) {
+        return global
+          .alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      }
+      await setRevenues(response.drinks);
+    }
   };
 
   return (

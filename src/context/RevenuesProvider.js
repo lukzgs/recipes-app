@@ -18,7 +18,7 @@ function RevenuesProvider({ children }) {
 }
 
 RevenuesProvider.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.object).isRequired,
+  children: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default RevenuesProvider;
