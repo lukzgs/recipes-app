@@ -3,22 +3,22 @@ import RevenuesContex from '../context/RevenuesContex';
 
 const MAX_LENGTH = 11;
 
-function CardsFood() {
+function CardsDrink() {
   const { revenues } = useContext(RevenuesContex);
   const revenuesTwelve = revenues.filter((revenue, index) => index <= MAX_LENGTH);
   return (
-    revenuesTwelve.map(({ idMeal, strMealThumb, strMeal }, index) => (
-      <div key={ idMeal } data-testid={ `${index}-recipe-card` }>
+    revenuesTwelve.map(({ idDrink, strDrinkThumb, strDrink }, index) => (
+      <div key={ idDrink } data-testid={ `${index}-recipe-card` }>
         <img
           data-testid={ `${index}-card-img` }
           style={ { height: '5em' } }
-          src={ strMealThumb }
-          alt={ strMeal }
+          src={ strDrinkThumb }
+          alt={ strDrink }
         />
-        <p data-testid={ `${index}-card-name` }>{strMeal}</p>
+        <p data-testid={ `${index}-card-name` }>{strDrink}</p>
       </div>
     ))
   );
 }
 
-export default CardsFood;
+export default CardsDrink;
