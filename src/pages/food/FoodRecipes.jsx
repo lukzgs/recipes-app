@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+// import { useHistory } from 'react-router';
 import { SearchFood } from '../../services/SearchFood';
 
 function FoodRecipes() {
+  // const { location } = useHistory();
+  // const { pathname } = location;
   useEffect(() => {
     SearchFood('https://www.themealdb.com/api/json/v1/1/lookup.php?i=52771');
   }, []);

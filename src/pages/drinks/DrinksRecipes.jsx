@@ -1,7 +1,10 @@
 import React, { useEffect } from 'react';
+import { useHistory } from 'react-router';
 import { SearchDrink } from '../../services/SearchDrink';
 
 function DrinksRecipes() {
+  const { location } = useHistory();
+  const { pathname } = location;
   useEffect(() => {
     SearchDrink('https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=178319');
   }, []);
