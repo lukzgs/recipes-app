@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-// import { useHistory } from 'react-router';
+import { useHistory } from 'react-router';
 import { SearchFood } from '../../services/SearchFood';
 
 const TOTAL_CARDS = 6;
@@ -7,9 +7,12 @@ const TOTAL_CARDS = 6;
 function FoodRecipes() {
   const [recipes, setRecipes] = useState([]);
   const [recomendationsDrinks, setRecomendationsDrinks] = useState([]);
-  // const history = useHistory();
+  const [finished, setFinished] = useState(true);
+
+  const history = useHistory();
   // const { location } = useHistory();
   // const { pathname } = location;
+
   const apiRecomDrinks = async () => {
     const responseRecomDrinks = await SearchFood('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     const arrayDrinks = responseRecomDrinks.drinks;
@@ -72,13 +75,16 @@ function FoodRecipes() {
             </div>
           ))}
         </div>
-        <button type="button">Continuar Receita</button>
         <button
           style={ { position: 'fixed', bottom: '0px' } }
           data-testid="start-recipe-btn"
           type="button"
+          onClick={ () => {
+            history.push('/comidas/52771/in-progress');
+            setFinished(!finished);
+          } }
         >
-          Iniciar Receita
+          { finished === false ? 'Continuar Receita' : 'Iniciar Receita' }
         </button>
       </main>
     ))

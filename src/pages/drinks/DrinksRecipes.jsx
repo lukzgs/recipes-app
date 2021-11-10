@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-// import { useHistory } from 'react-router';
+import { useHistory } from 'react-router';
 import { SearchDrink } from '../../services/SearchDrink';
 
 const TOTAL_CARDS = 6;
@@ -7,7 +7,9 @@ const TOTAL_CARDS = 6;
 function DrinksRecipes() {
   const [recipes, setRecipes] = useState([]);
   const [recomendationFoods, setRecomendationFoods] = useState([]);
-  // const history = useHistory();
+  const [finished, setFinished] = useState(true);
+
+  const history = useHistory();
   // const { location } = useHistory();
   // const { pathname } = location;
 
@@ -25,11 +27,6 @@ function DrinksRecipes() {
     fetchApi();
     apiRecomendationFoods();
   }, []);
-
-  // const handleClick = (event) => {
-  //   event.preventDefault();
-  //   history.push('./comidaemprocesso');
-  // };
 
   if (recipes[0] === undefined) return <p>Carregando...</p>;
 
@@ -75,14 +72,16 @@ function DrinksRecipes() {
             </div>
           ))}
         </div>
-        <button type="button">Continuar Receita</button>
         <button
           style={ { position: 'fixed', bottom: '0px' } }
           data-testid="start-recipe-btn"
           type="button"
-          // onClick={ handleClick }
+          onClick={ () => {
+            history.push('/bebidas/178319/in-progress');
+            setFinished(!finished);
+          } }
         >
-          Iniciar Receita
+          { finished === false ? 'Continuar Receita' : 'Iniciar Receita' }
         </button>
       </main>
     ))
