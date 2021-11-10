@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { SwitchFood } from '../../services/SearchFood';
-import { SwitchDrink } from '../../services/SwitchDrink';
+import { SwitchDrink } from '../../services/SearchDrink';
 import RevenuesContex from '../../context/RevenuesContex';
 
 function Radios({ value }) {
