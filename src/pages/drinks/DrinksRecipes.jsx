@@ -4,8 +4,16 @@ import { SearchDrink } from '../../services/SearchDrink';
 
 function DrinksRecipes() {
   const [recipes, setRecipes] = useState([]);
+  const [recomendationFoods, setRecomendationFoods] = useState([]);
+  // const history = useHistory();
   // const { location } = useHistory();
   // const { pathname } = location;
+
+  const apiRecomendationFoods = async () => {
+    const responseRecomendationFoods = await SearchDrink('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    const arrayFoods = responseRecomendationFoods.meals;
+    setRecomendationFoods(arrayFoods);
+  };
 
   useEffect(() => {
     const fetchApi = async () => {
@@ -13,7 +21,13 @@ function DrinksRecipes() {
       setRecipes(response.drinks);
     };
     fetchApi();
+    apiRecomendationFoods();
   }, []);
+
+  // const handleClick = (event) => {
+  //   event.preventDefault();
+  //   history.push('./comidaemprocesso');
+  // };
 
   if (recipes[0] === undefined) return <p>Carregando...</p>;
 
@@ -42,8 +56,27 @@ function DrinksRecipes() {
             </li>))}
         </ul>
         <p data-testid="instructions">{drink.strInstructions}</p>
-        <div data-testid={ `${0}-recomendation-card` }>{drink.strDrinkAlternate}</div>
-        <button data-testid="start-recipe-btn" type="button">iniciar</button>
+        {recomendationFoods.map((recom, index) => (
+          <div
+            key={ recom.idMeal }
+            data-testid={ `${index}-recomendation-card` }
+          >
+            <img
+              src={ recom.strMealThumb }
+              alt={ recom.strMeal }
+            />
+            { recom.strMeal }
+
+          </div>
+        ))}
+        <button type="button">Continuar Receita</button>
+        <button
+          data-testid="start-recipe-btn"
+          type="button"
+          // onClick={ handleClick }
+        >
+          Iniciar Receita
+        </button>
       </main>
     ))
   );
