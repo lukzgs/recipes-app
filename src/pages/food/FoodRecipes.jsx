@@ -4,14 +4,23 @@ import { SearchFood } from '../../services/SearchFood';
 
 function FoodRecipes() {
   const [recipes, setRecipes] = useState([]);
+  const [recomendationsDrinks, setRecomendationsDrinks] = useState([]);
+  // const history = useHistory();
   // const { location } = useHistory();
   // const { pathname } = location;
+  const apiRecomDrinks = async () => {
+    const responseRecomDrinks = await SearchFood('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+    const arrayDrinks = responseRecomDrinks.drinks;
+    setRecomendationsDrinks(arrayDrinks);
+  };
+
   useEffect(() => {
     const fetchApi = async () => {
       const response = await SearchFood('https://www.themealdb.com/api/json/v1/1/lookup.php?i=52771');
       setRecipes(response.meals);
     };
     fetchApi();
+    apiRecomDrinks();
   }, []);
 
   if (recipes[0] === undefined) return <p>Carregando...</p>;
@@ -44,8 +53,21 @@ function FoodRecipes() {
         <div>
           <iframe data-testid="video" title="video" src={ food.strYoutube } />
         </div>
-        <div data-testid={ `${0}-recomendation-card` }>{food.strDrinkAlternate}</div>
-        <button data-testid="start-recipe-btn" type="button">iniciar</button>
+        {recomendationsDrinks.map((recomendation, index) => (
+          <div
+            key={ recomendation.idDrinks }
+            data-testid={ `${index}-recomendation-card` }
+          >
+            <img
+              src={ recomendation.strDrinkThumb }
+              alt={ recomendation.strGlass }
+            />
+            { recomendation.strGlass }
+
+          </div>
+        ))}
+        <button type="button">Continuar Receita</button>
+        <button data-testid="start-recipe-btn" type="button">Iniciar Receita</button>
       </main>
     ))
   );
