@@ -7,12 +7,19 @@ import { SearchDrink } from '../services/SearchDrink';
 function RevenuesProvider({ children }) {
   const [revenues, setRevenues] = useState([]);
   const [drinks, setDrinks] = useState([]);
+  // usados em categorias
+  const [drinksCat, setDrinksCat] = useState([]);
+  const [mealsCat, setMealsCat] = useState([]);
 
   const value = {
     revenues,
     setRevenues,
     drinks,
     setDrinks,
+    mealsCat,
+    setMealsCat,
+    drinksCat,
+    setDrinksCat,
   };
 
   useEffect(() => {
@@ -29,6 +36,23 @@ function RevenuesProvider({ children }) {
       setDrinks(response.drinks);
     };
     fetchApiDrinks();
+  }, []);
+
+  // usados em categorias
+  useEffect(() => {
+    const fetchApiMealsCat = async () => {
+      const response = await SearchFood('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
+      setMealsCat(response.meals);
+    };
+    fetchApiMealsCat();
+  }, []);
+
+  useEffect(() => {
+    const fetchApiDrinksCat = async () => {
+      const response = await SearchDrink('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
+      setDrinksCat(response.drinks);
+    };
+    fetchApiDrinksCat();
   }, []);
 
   return (
