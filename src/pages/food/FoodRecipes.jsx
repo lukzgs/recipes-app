@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 // import { useHistory } from 'react-router';
 import { SearchFood } from '../../services/SearchFood';
 
+const TOTAL_CARDS = 6;
+
 function FoodRecipes() {
   const [recipes, setRecipes] = useState([]);
   const [recomendationsDrinks, setRecomendationsDrinks] = useState([]);
@@ -53,21 +55,31 @@ function FoodRecipes() {
         <div>
           <iframe data-testid="video" title="video" src={ food.strYoutube } />
         </div>
-        {recomendationsDrinks.map((recomendation, index) => (
-          <div
-            key={ recomendation.idDrinks }
-            data-testid={ `${index}-recomendation-card` }
-          >
-            <img
-              src={ recomendation.strDrinkThumb }
-              alt={ recomendation.strGlass }
-            />
-            { recomendation.strGlass }
-
-          </div>
-        ))}
+        <div className="scroll flex">
+          {recomendationsDrinks.slice(0, TOTAL_CARDS).map((recomendation, index) => (
+            <div
+              key={ recomendation.idDrinks }
+              data-testid={ `${index}-recomendation-card` }
+            >
+              <img
+                style={ { height: '5em' } }
+                src={ recomendation.strDrinkThumb }
+                alt={ recomendation.strDrink }
+              />
+              <p data-testid={ `${index}-recomendation-title` }>
+                { recomendation.strDrink }
+              </p>
+            </div>
+          ))}
+        </div>
         <button type="button">Continuar Receita</button>
-        <button data-testid="start-recipe-btn" type="button">Iniciar Receita</button>
+        <button
+          style={ { position: 'fixed', bottom: '0px' } }
+          data-testid="start-recipe-btn"
+          type="button"
+        >
+          Iniciar Receita
+        </button>
       </main>
     ))
   );

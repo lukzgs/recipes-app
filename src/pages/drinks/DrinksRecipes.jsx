@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 // import { useHistory } from 'react-router';
 import { SearchDrink } from '../../services/SearchDrink';
 
+const TOTAL_CARDS = 6;
+
 function DrinksRecipes() {
   const [recipes, setRecipes] = useState([]);
   const [recomendationFoods, setRecomendationFoods] = useState([]);
@@ -56,21 +58,26 @@ function DrinksRecipes() {
             </li>))}
         </ul>
         <p data-testid="instructions">{drink.strInstructions}</p>
-        {recomendationFoods.map((recom, index) => (
-          <div
-            key={ recom.idMeal }
-            data-testid={ `${index}-recomendation-card` }
-          >
-            <img
-              src={ recom.strMealThumb }
-              alt={ recom.strMeal }
-            />
-            { recom.strMeal }
-
-          </div>
-        ))}
+        <div className="scroll flex">
+          {recomendationFoods.slice(0, TOTAL_CARDS).map((recom, index) => (
+            <div
+              key={ recom.idMeal }
+              data-testid={ `${index}-recomendation-card` }
+            >
+              <img
+                style={ { height: '5em' } }
+                src={ recom.strMealThumb }
+                alt={ recom.strMeal }
+              />
+              <p data-testid={ `${index}-recomendation-title` }>
+                { recom.strMeal }
+              </p>
+            </div>
+          ))}
+        </div>
         <button type="button">Continuar Receita</button>
         <button
+          style={ { position: 'fixed', bottom: '0px' } }
           data-testid="start-recipe-btn"
           type="button"
           // onClick={ handleClick }
