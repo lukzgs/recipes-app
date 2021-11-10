@@ -1,0 +1,7 @@
+input[type="checkbox"]:checked {
+  text-decoration: line-through;
+}
+
+.checked {
+  background-color: rgb(184, 40, 40);
+}
