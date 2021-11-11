@@ -5,7 +5,6 @@ const INGREDIENT = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
 export const SearchFood = async (api) => {
   const result = await fetch(api);
   const resultJson = await result.json();
-  console.log(result, api);
   return resultJson;
 };
 
