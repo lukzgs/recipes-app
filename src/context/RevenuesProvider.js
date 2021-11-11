@@ -10,6 +10,7 @@ function RevenuesProvider({ children }) {
   // usados em categorias
   const [drinksCat, setDrinksCat] = useState([]);
   const [mealsCat, setMealsCat] = useState([]);
+  const [type, setType] = useState([]);
 
   const value = {
     revenues,
@@ -20,6 +21,8 @@ function RevenuesProvider({ children }) {
     setMealsCat,
     drinksCat,
     setDrinksCat,
+    type,
+    setType,
   };
 
   useEffect(() => {
@@ -54,6 +57,10 @@ function RevenuesProvider({ children }) {
     };
     fetchApiDrinksCat();
   }, []);
+
+  // useEffect(() => {
+  //   setType();
+  // }, []);
 
   return (
     <RevenuesContex.Provider value={ value }>
