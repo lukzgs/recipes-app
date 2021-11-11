@@ -68,12 +68,12 @@
 }
 
 .scroll {
-  overflow: auto;
   height: 150px;
+  overflow: auto;
   width: 150px;
 }
 
-.flex{
+.flex {
   display: flex;
   flex-direction: row;
 }
