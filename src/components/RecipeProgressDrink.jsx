@@ -3,6 +3,11 @@ import '../RecipeProgress.css';
 import { useHistory } from 'react-router';
 import { SearchDrink } from '../services/SearchDrink';
 import handleChecked from '../global/handleChecked';
+import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+
+const ONE_SECOND = 1000;
 
 function RecipeProgressDrink() {
   const [revenueActual, setrevenueActual] = useState([]);
@@ -10,6 +15,10 @@ function RecipeProgressDrink() {
   const [ability, setAbility] = useState(0);
   const [made, setMade] = useState([]);
   const [meals, setMeals] = useState([]);
+  const [drinkId, setDrinkId] = useState('');
+  const [storageFavorites, setStorageFavorites] = useState([]);
+  const [copy, setCopy] = useState(true);
+  const [iconHeart, setIconHeart] = useState(true);
 
   const history = useHistory();
   const path = history.location.pathname.split('/');
@@ -19,6 +28,7 @@ function RecipeProgressDrink() {
     const fetchApi = async () => {
       const response = await SearchDrink(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
       setrevenueActual(response.drinks);
+      setDrinkId(response.drinks[0].idDrink);
     };
 
     fetchApi();
@@ -43,7 +53,15 @@ function RecipeProgressDrink() {
       setMade(inProgressRecipes.cocktails[id]);
       setMeals({ meals: inProgressRecipes.meals });
     }
-  }, [id]);
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favoriteRecipes === null) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    } else setStorageFavorites(favoriteRecipes);
+    if (favoriteRecipes !== null) {
+      const trueFavorite = favoriteRecipes.some((fav) => fav.id === drinkId);
+      setIconHeart(!trueFavorite);
+    }
+  }, [id, drinkId]);
 
   if (revenueActual[0] === undefined) return <p>Carregando...</p>;
 
@@ -66,6 +84,36 @@ function RecipeProgressDrink() {
     localStorage.setItem('inProgressRecipes', JSON.stringify(progress));
   };
 
+  const handleClickShare = () => {
+    navigator.clipboard.writeText(`http://localhost:3000/${path[1]}/${path[2]}`);
+    setCopy(false);
+    setTimeout(() => {
+      setCopy(true);
+    }, ONE_SECOND);
+  };
+
+  const handleClickFavorite = () => {
+    setIconHeart(!iconHeart);
+    const { idDrink, strDrink, strCategory, 
+      strDrinkThumb, strAlcoholic } = revenueActual[0];
+    const favorite = {
+      id: idDrink,
+      type: 'bebida',
+      area: '',
+      category: strCategory,
+      alcoholicOrNot: strAlcoholic,
+      name: strDrink,
+      image: strDrinkThumb };
+
+    if (iconHeart) {
+      localStorage.setItem('favoriteRecipes', JSON
+        .stringify([...storageFavorites, favorite]));
+    } else {
+      const delFavorite = storageFavorites.filter((fav) => fav.id !== idDrink);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(delFavorite));
+    }
+  };
+
   return (
     <div>
       <img
@@ -74,8 +122,26 @@ function RecipeProgressDrink() {
         alt={ revenueActual[0].strDrink }
       />
       <h1 data-testid="recipe-title">{revenueActual[0].strDrink}</h1>
-      <button type="button" data-testid="share-btn">Share</button>
-      <button type="button" data-testid="favorite-btn">Favorite</button>
+      <button
+        onClick={ handleClickShare }
+        data-testid="share-btn"
+        type="button"
+        style={ { backgroundColor: 'Transparent', border: 'none' } }
+      >
+        <img src={ shareIcon } alt="shareIcon" />
+      </button>
+      <button
+        type="button"
+        style={ { backgroundColor: 'Transparent', border: 'none' } }
+        onClick={ handleClickFavorite }
+      >
+        <img
+          data-testid="favorite-btn"
+          src={ iconHeart ? whiteHeartIcon : blackHeartIcon }
+          alt="heartIcon"
+        />
+      </button>
+      <p hidden={ copy }>Link copiado!</p>
       <span data-testid="recipe-category">{revenueActual[0].strCategory}</span>
       <form>
         {
