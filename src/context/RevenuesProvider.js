@@ -10,6 +10,11 @@ function RevenuesProvider({ children }) {
   // usados em categorias
   const [drinksCat, setDrinksCat] = useState([]);
   const [mealsCat, setMealsCat] = useState([]);
+  // usado nos btns
+  const [copy, setCopy] = useState(true);
+  const [iconHeart, setIconHeart] = useState(true);
+  const [storageFavorites, setStorageFavorites] = useState([]);
+  const [recipes, setRecipes] = useState([]);
 
   const value = {
     revenues,
@@ -20,6 +25,14 @@ function RevenuesProvider({ children }) {
     setMealsCat,
     drinksCat,
     setDrinksCat,
+    iconHeart,
+    setIconHeart,
+    copy,
+    setCopy,
+    storageFavorites,
+    setStorageFavorites,
+    recipes,
+    setRecipes,
   };
 
   useEffect(() => {

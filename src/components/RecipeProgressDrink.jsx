@@ -1,15 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import '../RecipeProgress.css';
 import { useHistory } from 'react-router';
 import { SearchDrink } from '../services/SearchDrink';
-import handleChecked from '../global/handleChecked';
+import { handleChecked, checkedDefault, checkedLocal } from '../global/checked';
+import Btns from './buttons/Btns';
+import RevenuesContex from '../context/RevenuesContex';
 
 function RecipeProgressDrink() {
-  const [revenueActual, setrevenueActual] = useState([]);
   const [saveMade, setSaveMade] = useState([]);
   const [ability, setAbility] = useState(0);
   const [made, setMade] = useState([]);
   const [meals, setMeals] = useState([]);
+  const [drinkId, setDrinkId] = useState('');
+  const { recipes, setRecipes,
+    setStorageFavorites, setIconHeart } = useContext(RevenuesContex);
 
   const history = useHistory();
   const path = history.location.pathname.split('/');
@@ -18,7 +22,8 @@ function RecipeProgressDrink() {
   useEffect(() => {
     const fetchApi = async () => {
       const response = await SearchDrink(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
-      setrevenueActual(response.drinks);
+      setRecipes(response.drinks);
+      setDrinkId(response.drinks[0].idDrink);
     };
 
     fetchApi();
@@ -43,11 +48,22 @@ function RecipeProgressDrink() {
       setMade(inProgressRecipes.cocktails[id]);
       setMeals({ meals: inProgressRecipes.meals });
     }
-  }, [id]);
 
-  if (revenueActual[0] === undefined) return <p>Carregando...</p>;
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
-  const ingrendients = Object.entries(revenueActual[0]).filter((recipe) => recipe[0]
+    if (favoriteRecipes === null) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    } else setStorageFavorites(favoriteRecipes);
+
+    if (favoriteRecipes !== null) {
+      const trueFavorite = favoriteRecipes.some((fav) => fav.id === drinkId);
+      setIconHeart(!trueFavorite);
+    }
+  }, [id, drinkId, setIconHeart, setRecipes, setStorageFavorites]);
+
+  if (recipes[0] === undefined) return <p>Carregando...</p>;
+
+  const ingrendients = Object.entries(recipes[0]).filter((recipe) => recipe[0]
     .includes('strIngredient') && recipe[1] !== null && recipe[1] !== '');
 
   const handleClick = ({ target }) => {
@@ -70,21 +86,18 @@ function RecipeProgressDrink() {
     <div>
       <img
         data-testid="recipe-photo"
-        src={ revenueActual[0].strDrinkThumb }
-        alt={ revenueActual[0].strDrink }
+        src={ recipes[0].strDrinkThumb }
+        alt={ recipes[0].strDrink }
       />
-      <h1 data-testid="recipe-title">{revenueActual[0].strDrink}</h1>
-      <button type="button" data-testid="share-btn">Share</button>
-      <button type="button" data-testid="favorite-btn">Favorite</button>
-      <span data-testid="recipe-category">{revenueActual[0].strCategory}</span>
+      <h1 data-testid="recipe-title">{recipes[0].strDrink}</h1>
+      <Btns pathname={ id } name="bebidas" />
+      <span data-testid="recipe-category">{recipes[0].strCategory}</span>
       <form>
         {
           ingrendients.map((ingredient, i) => (
             <label
               data-testid={ `${i}-ingredient-step` }
-              className={ (saveMade.length
-                !== 0 ? saveMade.some((m) => m === ingredient[1])
-                : false) ? 'checkedInput' : false }
+              className={ checkedLocal(ingredient, saveMade) }
               key={ i }
               htmlFor={ ingredient[1] }
             >
@@ -96,14 +109,13 @@ function RecipeProgressDrink() {
                 value={ ingredient[1] }
                 onChange={ (e) => handleChecked(e) }
                 onClick={ handleClick }
-                defaultChecked={ saveMade.length
-                  !== 0 ? saveMade.some((m) => m === ingredient[1]) : false }
+                defaultChecked={ checkedDefault(ingredient, saveMade) }
               />
             </label>
           ))
         }
         <div>
-          <span data-testid="instructions">{revenueActual[0].strInstructions}</span>
+          <span data-testid="instructions">{recipes[0].strInstructions}</span>
         </div>
         <button
           data-testid="finish-recipe-btn"

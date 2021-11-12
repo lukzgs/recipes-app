@@ -11,8 +11,6 @@ export function MealsCatBtn() {
   // });
 
   const meals = mealsCat.filter((meal, index) => index <= MAX_LENGTH);
-  console.log(meals);
-  console.log(mealsCat);
 
   return (
     meals.map(({ strCategory }, index) => (

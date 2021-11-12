@@ -6,6 +6,7 @@ const MAX_LENGTH = 11;
 function CardsDrink() {
   const { drinks } = useContext(RevenuesContex);
   const revenuesTwelve = drinks.filter((revenue, index) => index <= MAX_LENGTH);
+
   return (
     revenuesTwelve.map(({ idDrink, strDrinkThumb, strDrink }, index) => (
       <div key={ idDrink } data-testid={ `${index}-recipe-card` }>
