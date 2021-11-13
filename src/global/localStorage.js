@@ -15,7 +15,7 @@ export const recipesMade = (recipes) => {
   localStorage.setItem('doneRecipes', JSON.stringify([...doneRecipes, recipes]));
 };
 
-export const inProgress = (id, setSaveMade, setMade, setMeals) => {
+export const inProgressDrink = (id, setSaveMade, setMade, setMeals) => {
   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
 
   if (inProgressRecipes === null) {
@@ -35,6 +35,29 @@ export const inProgress = (id, setSaveMade, setMade, setMeals) => {
     setSaveMade(inProgressRecipes.cocktails[id]);
     setMade(inProgressRecipes.cocktails[id]);
     setMeals({ meals: inProgressRecipes.meals });
+  }
+};
+
+export const inProgressFood = (id, setSaveMade, setMade, setCocktails) => {
+  const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+  if (inProgressRecipes === null) {
+    localStorage.setItem('inProgressRecipes', JSON.stringify({
+      meals: {
+        [id]: [],
+      },
+    }));
+  } else if (inProgressRecipes.meals === undefined) {
+    localStorage.setItem('inProgressRecipes', JSON.stringify({
+      meals: {
+        [id]: [],
+      },
+      ...inProgressRecipes,
+    }));
+  } else if (inProgressRecipes !== null && inProgressRecipes.meals !== undefined) {
+    setSaveMade(inProgressRecipes.meals[id]);
+    setMade(inProgressRecipes.meals[id]);
+    setCocktails({ cocktails: inProgressRecipes.cocktails });
   }
 };
 

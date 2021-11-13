@@ -5,7 +5,8 @@ import { SearchDrink } from '../services/SearchDrink';
 import { handleChecked, checkedDefault, checkedLocal } from '../global/checked';
 import Btns from './buttons/Btns';
 import RevenuesContex from '../context/RevenuesContex';
-import { favorite, inProgress, recipesDone, recipesMade } from '../global/localStorage';
+import { favorite, inProgressDrink,
+  recipesDone, recipesMade } from '../global/localStorage';
 
 function RecipeProgressDrink() {
   const [saveMade, setSaveMade] = useState([]);
@@ -29,7 +30,7 @@ function RecipeProgressDrink() {
 
     fetchApi();
     favorite(setStorageFavorites, drinkId, setIconHeart);
-    inProgress(id, setSaveMade, setMade, setMeals);
+    inProgressDrink(id, setSaveMade, setMade, setMeals);
     recipesDone();
   }, [id, drinkId, setIconHeart, setRecipes, setStorageFavorites]);
 
