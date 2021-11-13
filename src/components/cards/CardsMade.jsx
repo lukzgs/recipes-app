@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import RevenuesContex from '../../context/RevenuesContex';
 import { ONE_SECOND } from '../../global/constantesGlobais';
 import shareIcon from '../../images/shareIcon.svg';
@@ -37,17 +38,21 @@ function CardsMade({ filter }) {
     }, ONE_SECOND);
   };
 
-  // if (filter === 'all') {
   return (
     filteRecipes.map((recipe, index) => (
       recipe.alcoholicOrNot === '' ? (
         <div key={ recipe.id }>
-          <img
-            data-testid={ `${index}-horizontal-image` }
-            src={ recipe.image }
-            alt={ recipe.name }
-          />
-          <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
+          <Link to={ `comidas/${recipe.id}` }>
+            <img
+              style={ { height: '20em' } }
+              data-testid={ `${index}-horizontal-image` }
+              src={ recipe.image }
+              alt={ recipe.name }
+            />
+          </Link>
+          <Link to={ `comidas/${recipe.id}` }>
+            <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
+          </Link>
           <p data-testid={ `${index}-horizontal-top-text` }>
             {`${recipe.area} - ${recipe.category}`}
           </p>
@@ -69,12 +74,17 @@ function CardsMade({ filter }) {
         </div>
       ) : (
         <div key={ recipe.id }>
-          <img
-            data-testid={ `${index}-horizontal-image` }
-            src={ recipe.image }
-            alt={ recipe.name }
-          />
-          <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
+          <Link to={ `bebidas/${recipe.id}` }>
+            <img
+              style={ { height: '20em' } }
+              data-testid={ `${index}-horizontal-image` }
+              src={ recipe.image }
+              alt={ recipe.name }
+            />
+          </Link>
+          <Link to={ `bebidas/${recipe.id}` }>
+            <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
+          </Link>
           <p data-testid={ `${index}-horizontal-top-text` }>{recipe.alcoholicOrNot}</p>
           <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
           <button
@@ -95,74 +105,6 @@ function CardsMade({ filter }) {
       )
     ))
   );
-  // } if (filter === 'food') {
-  //   return (
-  //     finishedRecipes.map((recipe, index) => {
-  //       if (recipe.alcoholicOrNot === '') {
-  //         return (
-  //           <div key={ recipe.id }>
-  //             <img
-  //               data-testid={ `${index}-horizontal-image` }
-  //               src={ recipe.image }
-  //               alt={ recipe.name }
-  //             />
-  //             <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
-  //             <p data-testid={ `${index}-horizontal-top-text` }>
-  //               {`${recipe.area} - ${recipe.category}`}
-  //             </p>
-  //             <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
-  //             <button
-  //               onClick={ () => handleClickShare('comidas', recipe.id) }
-  //               type="button"
-  //               style={ { backgroundColor: 'Transparent', border: 'none' } }
-  //             >
-  //               <img
-  //                 data-testid={ `${index}-horizontal-share-btn` }
-  //                 src={ shareIcon }
-  //                 alt="shareIcon"
-  //               />
-  //             </button>
-  //             <p hidden={ copy }>Link copiado!</p>
-  //             {recipe.tags.map((tag, i) => (
-  //               <p key={ i } data-testid={ `${index}-${tag}-horizontal-tag` }>{tag}</p>))}
-  //           </div>
-  //         );
-  //       }
-  //       return null;
-  //     }));
-  // }
-  // return (
-  //   finishedRecipes.map((recipe, index) => {
-  //     if (recipe.area === '') {
-  //       return (
-  //         <div key={ recipe.id }>
-  //           <img
-  //             data-testid={ `${index}-horizontal-image` }
-  //             src={ recipe.image }
-  //             alt={ recipe.name }
-  //           />
-  //           <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
-  //           <p data-testid={ `${index}-horizontal-top-text` }>{recipe.alcoholicOrNot}</p>
-  //           <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
-  //           <button
-  //             onClick={ () => handleClickShare('bebidas', recipe.id) }
-  //             type="button"
-  //             style={ { backgroundColor: 'Transparent', border: 'none' } }
-  //           >
-  //             <img
-  //               data-testid={ `${index}-horizontal-share-btn` }
-  //               src={ shareIcon }
-  //               alt="shareIcon"
-  //             />
-  //           </button>
-  //           <p hidden={ copy }>Link copiado!</p>
-  //           {recipe.tags.map((tag, i) => (
-  //             <p key={ i } data-testid={ `${index}-${tag}-horizontal-tag` }>{tag}</p>))}
-  //         </div>
-  //       );
-  //     }
-  //     return null;
-  //   }));
 }
 
 CardsMade.propTypes = {

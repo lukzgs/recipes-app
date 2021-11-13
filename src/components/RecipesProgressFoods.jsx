@@ -84,6 +84,7 @@ function RecipeProgressFoods() {
   return (
     <div>
       <img
+        style={ { height: '20em' } }
         data-testid="recipe-photo"
         src={ recipes[0].strMealThumb }
         alt={ recipes[0].strMeal }

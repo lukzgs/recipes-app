@@ -81,6 +81,7 @@ function RecipeProgressDrink() {
   return (
     <div>
       <img
+        style={ { height: '20em' } }
         data-testid="recipe-photo"
         src={ recipes[0].strDrinkThumb }
         alt={ recipes[0].strDrink }
