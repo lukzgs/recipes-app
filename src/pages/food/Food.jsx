@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import '../../index.css';
-import CardsFood from '../../components/CardsFood';
+import CardsFood from '../../components/cards/CardsFood';
 import { MealsCatBtn } from '../../components/CategoryBtn';
 
 export default function Food() {

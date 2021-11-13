@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import RevenuesContex from '../context/RevenuesContex';
+import RevenuesContex from '../../context/RevenuesContex';
 
 const MAX_LENGTH = 11;
 

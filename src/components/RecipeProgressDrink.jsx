@@ -5,6 +5,7 @@ import { SearchDrink } from '../services/SearchDrink';
 import { handleChecked, checkedDefault, checkedLocal } from '../global/checked';
 import Btns from './buttons/Btns';
 import RevenuesContex from '../context/RevenuesContex';
+import { favorite, inProgress, recipesDone, recipesMade } from '../global/localStorage';
 
 function RecipeProgressDrink() {
   const [saveMade, setSaveMade] = useState([]);
@@ -27,38 +28,9 @@ function RecipeProgressDrink() {
     };
 
     fetchApi();
-
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
-    if (inProgressRecipes === null) {
-      localStorage.setItem('inProgressRecipes', JSON.stringify({
-        cocktails: {
-          [id]: [],
-        },
-      }));
-    } else if (inProgressRecipes.cocktails === undefined) {
-      localStorage.setItem('inProgressRecipes', JSON.stringify({
-        cocktails: {
-          [id]: [],
-        },
-        ...inProgressRecipes,
-      }));
-    } else if (inProgressRecipes !== null && inProgressRecipes.cocktails !== undefined) {
-      setSaveMade(inProgressRecipes.cocktails[id]);
-      setMade(inProgressRecipes.cocktails[id]);
-      setMeals({ meals: inProgressRecipes.meals });
-    }
-
-    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-
-    if (favoriteRecipes === null) {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
-    } else setStorageFavorites(favoriteRecipes);
-
-    if (favoriteRecipes !== null) {
-      const trueFavorite = favoriteRecipes.some((fav) => fav.id === drinkId);
-      setIconHeart(!trueFavorite);
-    }
+    favorite(setStorageFavorites, drinkId, setIconHeart);
+    inProgress(id, setSaveMade, setMade, setMeals);
+    recipesDone();
   }, [id, drinkId, setIconHeart, setRecipes, setStorageFavorites]);
 
   if (recipes[0] === undefined) return <p>Carregando...</p>;
@@ -71,7 +43,6 @@ function RecipeProgressDrink() {
     const { value } = target;
     setMade([...made, value]);
 
-    console.log(meals);
     const progress = {
       cocktails: {
         [id]: [...made, value],
@@ -80,6 +51,29 @@ function RecipeProgressDrink() {
     };
 
     localStorage.setItem('inProgressRecipes', JSON.stringify(progress));
+  };
+
+  const handleClickFinished = () => {
+    let tags = [];
+    if (recipes[0].strTags === null) {
+      tags = [];
+    } else {
+      tags = recipes[0].strTags.includes(',') ? recipes[0].strTags.split(',')
+        : [recipes[0].strTags];
+    }
+    const finishedDrink = {
+      id: recipes[0].idDrink,
+      type: recipes[0].strGlass,
+      area: '',
+      category: recipes[0].strCategory,
+      alcoholicOrNot: recipes[0].strAlcoholic,
+      name: recipes[0].strDrink,
+      image: recipes[0].strDrinkThumb,
+      doneDate: new Date(),
+      tags,
+    };
+    recipesMade(finishedDrink);
+    return history.push('/receitas-feitas');
   };
 
   return (
@@ -121,7 +115,7 @@ function RecipeProgressDrink() {
           data-testid="finish-recipe-btn"
           type="button"
           disabled={ ability !== ingrendients.length }
-          onClick={ () => history.push('/receitas-feitas') }
+          onClick={ handleClickFinished }
         >
           Finalizar receita
         </button>

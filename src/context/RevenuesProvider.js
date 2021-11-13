@@ -15,6 +15,8 @@ function RevenuesProvider({ children }) {
   const [iconHeart, setIconHeart] = useState(true);
   const [storageFavorites, setStorageFavorites] = useState([]);
   const [recipes, setRecipes] = useState([]);
+  // usado para receitas finalizadas
+  const [finishedRecipes, setFinishedRecipes] = useState([]);
 
   const value = {
     revenues,
@@ -33,6 +35,8 @@ function RevenuesProvider({ children }) {
     setStorageFavorites,
     recipes,
     setRecipes,
+    finishedRecipes,
+    setFinishedRecipes,
   };
 
   useEffect(() => {

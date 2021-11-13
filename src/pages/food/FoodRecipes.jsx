@@ -4,6 +4,7 @@ import { SearchFood } from '../../services/SearchFood';
 import Btns from '../../components/buttons/Btns';
 import RevenuesContex from '../../context/RevenuesContex';
 import { TOTAL_CARDS } from '../../global/constantesGlobais';
+import { favorite } from '../../global/localStorage';
 
 function FoodRecipes() {
   const [recomendationsDrinks, setRecomendationsDrinks] = useState([]);
@@ -36,15 +37,7 @@ function FoodRecipes() {
 
     fetchApi();
     apiRecomDrinks();
-
-    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (favoriteRecipes === null) {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
-    } else setStorageFavorites(favoriteRecipes);
-    if (favoriteRecipes !== null) {
-      const trueFavorite = favoriteRecipes.some((fav) => fav.id === foodId);
-      setIconHeart(!trueFavorite);
-    }
+    favorite(setStorageFavorites, foodId, setIconHeart);
   }, [foodId, idReceita, setIconHeart, setStorageFavorites, setRecipes]);
 
   if (recipes[0] === undefined) return <p>Carregando...</p>;
