@@ -12,8 +12,8 @@ function RecipeProgressFoods() {
   const [saveMade, setSaveMade] = useState([]);
   const [ability, setAbility] = useState(0);
   const [made, setMade] = useState([]);
-  const [foodId, setFoodId] = useState('');
   const [cocktails, setCocktails] = useState([]);
+  const [foodId, setFoodId] = useState('');
 
   const { recipes, setRecipes,
     setStorageFavorites, setIconHeart } = useContext(RevenuesContex);
@@ -43,17 +43,19 @@ function RecipeProgressFoods() {
   const handleClick = ({ target }) => {
     if (target.checked) setAbility(ability + 1);
     else setAbility(ability - 1);
+
     const { value } = target;
     setMade([...made, value]);
 
-    const progress = {
-      cocktails,
+    localStorage.setItem('inProgressRecipes', JSON.stringify({
+      cocktails: {
+        ...cocktails,
+      },
       meals: {
+        ...saveMade,
         [id]: [...made, value],
       },
-    };
-
-    localStorage.setItem('inProgressRecipes', JSON.stringify(progress));
+    }));
   };
 
   const handleClickFinished = () => {
@@ -83,9 +85,9 @@ function RecipeProgressFoods() {
   };
 
   return (
-    <div>
+    <main>
       <img
-        style={ { height: '20em' } }
+        style={ { height: '6em' } }
         data-testid="recipe-photo"
         src={ recipes[0].strMealThumb }
         alt={ recipes[0].strMeal }
@@ -98,7 +100,7 @@ function RecipeProgressFoods() {
           ingrendients.map((ingredient, i) => (
             <label
               data-testid={ `${i}-ingredient-step` }
-              className={ checkedLocal(ingredient, saveMade) }
+              className={ checkedLocal(ingredient, saveMade, id) }
               key={ i }
               htmlFor={ ingredient[1] }
             >
@@ -110,7 +112,7 @@ function RecipeProgressFoods() {
                 value={ ingredient[1] }
                 onChange={ (e) => handleChecked(e) }
                 onClick={ handleClick }
-                defaultChecked={ checkedDefault(ingredient, saveMade) }
+                defaultChecked={ checkedDefault(ingredient, saveMade, id) }
               />
             </label>
           ))
@@ -127,7 +129,7 @@ function RecipeProgressFoods() {
           Finalizar receita
         </button>
       </form>
-    </div>
+    </main>
   );
 }
 

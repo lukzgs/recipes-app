@@ -14,6 +14,7 @@ function RecipeProgressDrink() {
   const [made, setMade] = useState([]);
   const [meals, setMeals] = useState([]);
   const [drinkId, setDrinkId] = useState('');
+
   const { recipes, setRecipes,
     setStorageFavorites, setIconHeart } = useContext(RevenuesContex);
 
@@ -40,18 +41,21 @@ function RecipeProgressDrink() {
     .includes('strIngredient') && recipe[1] !== null && recipe[1] !== '');
 
   const handleClick = ({ target }) => {
-    setAbility(ability + 1);
+    if (target.checked) setAbility(ability + 1);
+    else setAbility(ability - 1);
+
     const { value } = target;
     setMade([...made, value]);
 
-    const progress = {
+    localStorage.setItem('inProgressRecipes', JSON.stringify({
+      meals: {
+        ...meals,
+      },
       cocktails: {
+        ...saveMade,
         [id]: [...made, value],
       },
-      meals,
-    };
-
-    localStorage.setItem('inProgressRecipes', JSON.stringify(progress));
+    }));
   };
 
   const handleClickFinished = () => {
@@ -76,13 +80,14 @@ function RecipeProgressDrink() {
       tags,
     };
     recipesMade(finishedDrink);
+
     return history.push('/receitas-feitas');
   };
 
   return (
-    <div>
+    <main>
       <img
-        style={ { height: '20em' } }
+        style={ { height: '6em' } }
         data-testid="recipe-photo"
         src={ recipes[0].strDrinkThumb }
         alt={ recipes[0].strDrink }
@@ -95,7 +100,7 @@ function RecipeProgressDrink() {
           ingrendients.map((ingredient, i) => (
             <label
               data-testid={ `${i}-ingredient-step` }
-              className={ checkedLocal(ingredient, saveMade) }
+              className={ checkedLocal(ingredient, saveMade, id) }
               key={ i }
               htmlFor={ ingredient[1] }
             >
@@ -107,7 +112,7 @@ function RecipeProgressDrink() {
                 value={ ingredient[1] }
                 onChange={ (e) => handleChecked(e) }
                 onClick={ handleClick }
-                defaultChecked={ checkedDefault(ingredient, saveMade) }
+                defaultChecked={ checkedDefault(ingredient, saveMade, id) }
               />
             </label>
           ))
@@ -124,7 +129,7 @@ function RecipeProgressDrink() {
           Finalizar receita
         </button>
       </form>
-    </div>
+    </main>
   );
 }
 
