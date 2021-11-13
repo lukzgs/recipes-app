@@ -41,11 +41,20 @@ function RecipeProgressFoods() {
     .includes('strIngredient') && recipe[1] !== null && recipe[1] !== '');
 
   const handleClick = ({ target }) => {
+    let array = made;
     if (target.checked) setAbility(ability + 1);
     else setAbility(ability - 1);
 
     const { value } = target;
-    setMade([...made, value]);
+
+    if (made.includes(value)) {
+      const filter = array.filter((fil) => fil !== value);
+      array = filter;
+      setMade(filter);
+    } else {
+      array = [...made, value];
+      setMade([...made, value]);
+    }
 
     localStorage.setItem('inProgressRecipes', JSON.stringify({
       cocktails: {
@@ -53,7 +62,7 @@ function RecipeProgressFoods() {
       },
       meals: {
         ...saveMade,
-        [id]: [...made, value],
+        [id]: array,
       },
     }));
   };
@@ -87,7 +96,7 @@ function RecipeProgressFoods() {
   return (
     <main>
       <img
-        style={ { height: '6em' } }
+        style={ { height: '20em' } }
         data-testid="recipe-photo"
         src={ recipes[0].strMealThumb }
         alt={ recipes[0].strMeal }
@@ -110,7 +119,7 @@ function RecipeProgressFoods() {
                 name="ingredient"
                 id={ ingredient[1] }
                 value={ ingredient[1] }
-                onChange={ (e) => handleChecked(e) }
+                onChange={ (e) => handleChecked(e, setAbility, ability) }
                 onClick={ handleClick }
                 defaultChecked={ checkedDefault(ingredient, saveMade, id) }
               />

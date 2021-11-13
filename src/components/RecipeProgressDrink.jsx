@@ -35,17 +35,30 @@ function RecipeProgressDrink() {
     recipesDone();
   }, [id, drinkId, setIconHeart, setRecipes, setStorageFavorites]);
 
+  useEffect(() => {
+    setAbility(made.length);
+  }, [made]);
+
   if (recipes[0] === undefined) return <p>Carregando...</p>;
 
   const ingrendients = Object.entries(recipes[0]).filter((recipe) => recipe[0]
     .includes('strIngredient') && recipe[1] !== null && recipe[1] !== '');
 
   const handleClick = ({ target }) => {
+    let array = made;
     if (target.checked) setAbility(ability + 1);
     else setAbility(ability - 1);
 
     const { value } = target;
-    setMade([...made, value]);
+
+    if (made.includes(value)) {
+      const filter = array.filter((fil) => fil !== value);
+      array = filter;
+      setMade(filter);
+    } else {
+      array = [...made, value];
+      setMade([...made, value]);
+    }
 
     localStorage.setItem('inProgressRecipes', JSON.stringify({
       meals: {
@@ -53,7 +66,7 @@ function RecipeProgressDrink() {
       },
       cocktails: {
         ...saveMade,
-        [id]: [...made, value],
+        [id]: array,
       },
     }));
   };
@@ -87,7 +100,7 @@ function RecipeProgressDrink() {
   return (
     <main>
       <img
-        style={ { height: '6em' } }
+        style={ { height: '20em' } }
         data-testid="recipe-photo"
         src={ recipes[0].strDrinkThumb }
         alt={ recipes[0].strDrink }
@@ -112,7 +125,7 @@ function RecipeProgressDrink() {
                 value={ ingredient[1] }
                 onChange={ (e) => handleChecked(e) }
                 onClick={ handleClick }
-                defaultChecked={ checkedDefault(ingredient, saveMade, id) }
+                defaultChecked={ checkedDefault(ingredient, saveMade, id, setAbility) }
               />
             </label>
           ))

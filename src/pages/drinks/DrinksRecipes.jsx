@@ -47,7 +47,6 @@ function DrinksRecipes() {
     .includes('strMeasure') && recipe[1] !== null && recipe[1] !== '');
 
   const handleClickStart = () => {
-    history.push(`/bebidas/${idReceita}/in-progress`);
     if (JSON.parse(localStorage.getItem('inProgressRecipes')) === null) {
       localStorage.setItem('inProgressRecipes', JSON.stringify({
         cocktails: {
@@ -55,6 +54,7 @@ function DrinksRecipes() {
         },
       }));
     }
+    history.push(`/bebidas/${idReceita}/in-progress`);
   };
 
   return (
