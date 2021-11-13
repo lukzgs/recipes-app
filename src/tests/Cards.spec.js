@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import CardsFood from '../components/CardsFood';
-import CardsDrink from '../components/CardsDrink';
+import CardsFood from '../components/cards/CardsFood';
+import CardsDrink from '../components/cards/CardsDrink';
 import RevenuesContex from '../context/RevenuesContex';
 
 const mockFood = [{
