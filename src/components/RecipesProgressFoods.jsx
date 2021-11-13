@@ -63,6 +63,7 @@ function RecipeProgressFoods() {
       tags = recipes[0].strTags.includes(',') ? recipes[0].strTags.split(',')
         : [recipes[0].strTags];
     }
+
     const data = new Date();
     const finishedMeal = {
       id: recipes[0].idMeal,
@@ -72,7 +73,7 @@ function RecipeProgressFoods() {
       alcoholicOrNot: '',
       name: recipes[0].strMeal,
       image: recipes[0].strMealThumb,
-      doneDate: `${data.getDate()}/${data.getMonth()}/${data.getFullYear}`,
+      doneDate: `${data.getDate()}/${data.getMonth()}/${data.getFullYear()}`,
       tags,
     };
     recipesMade(finishedMeal);

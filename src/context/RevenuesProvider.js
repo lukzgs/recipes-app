@@ -1,8 +1,11 @@
 import PropTypes from 'prop-types';
+
 import React, { useState, useEffect } from 'react';
 import RevenuesContex from './RevenuesContex';
 import { SearchFood } from '../services/SearchFood';
 import { SearchDrink } from '../services/SearchDrink';
+
+const clipboard = require('clipboard-copy');
 
 function RevenuesProvider({ children }) {
   const [revenues, setRevenues] = useState([]);
@@ -37,6 +40,7 @@ function RevenuesProvider({ children }) {
     setRecipes,
     finishedRecipes,
     setFinishedRecipes,
+    clipboard,
   };
 
   useEffect(() => {

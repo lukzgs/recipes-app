@@ -1,9 +1,11 @@
 import React, { useContext, useEffect } from 'react';
 import RevenuesContex from '../../context/RevenuesContex';
+import { ONE_SECOND } from '../../global/constantesGlobais';
 import shareIcon from '../../images/shareIcon.svg';
 
 function CardsMade() {
-  const { finishedRecipes, setFinishedRecipes } = useContext(RevenuesContex);
+  const { finishedRecipes, setFinishedRecipes,
+    setCopy, copy, clipboard } = useContext(RevenuesContex);
 
   useEffect(() => {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
@@ -12,6 +14,14 @@ function CardsMade() {
       localStorage.setItem('doneRecipes', JSON.stringify([]));
     } else setFinishedRecipes(doneRecipes);
   }, [setFinishedRecipes]);
+
+  const handleClickShare = (name, id) => {
+    clipboard(`http://localhost:3000/${name}/${id}`);
+    setCopy(false);
+    setTimeout(() => {
+      setCopy(true);
+    }, ONE_SECOND);
+  };
 
   return (
     finishedRecipes.map((recipe, index) => (
@@ -28,7 +38,7 @@ function CardsMade() {
           </p>
           <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
           <button
-            // onClick={ handleClickShare }
+            onClick={ () => handleClickShare('comidas', recipe.id) }
             type="button"
             style={ { backgroundColor: 'Transparent', border: 'none' } }
           >
@@ -38,6 +48,7 @@ function CardsMade() {
               alt="shareIcon"
             />
           </button>
+          <p hidden={ copy }>Link copiado!</p>
           {recipe.tags.map((tag, i) => (
             <p key={ i } data-testid={ `${index}-${tag}-horizontal-tag` }>{tag}</p>))}
         </div>
@@ -52,7 +63,7 @@ function CardsMade() {
           <p data-testid={ `${index}-horizontal-top-text` }>{recipe.alcoholicOrNot}</p>
           <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
           <button
-            // onClick={ handleClickShare }
+            onClick={ () => handleClickShare('bebidas', recipe.id) }
             type="button"
             style={ { backgroundColor: 'Transparent', border: 'none' } }
           >
@@ -62,6 +73,7 @@ function CardsMade() {
               alt="shareIcon"
             />
           </button>
+          <p hidden={ copy }>Link copiado!</p>
           {recipe.tags.map((tag, i) => (
             <p key={ i } data-testid={ `${index}-${tag}-horizontal-tag` }>{tag}</p>))}
         </div>
