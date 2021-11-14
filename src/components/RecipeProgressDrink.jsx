@@ -5,6 +5,8 @@ import { SearchDrink } from '../services/SearchDrink';
 import { handleChecked, checkedDefault, checkedLocal } from '../global/checked';
 import Btns from './buttons/Btns';
 import RevenuesContex from '../context/RevenuesContex';
+import { favorite, inProgressDrink,
+  recipesDone, recipesMade } from '../global/localStorage';
 
 function RecipeProgressDrink() {
   const [saveMade, setSaveMade] = useState([]);
@@ -12,6 +14,7 @@ function RecipeProgressDrink() {
   const [made, setMade] = useState([]);
   const [meals, setMeals] = useState([]);
   const [drinkId, setDrinkId] = useState('');
+
   const { recipes, setRecipes,
     setStorageFavorites, setIconHeart } = useContext(RevenuesContex);
 
@@ -27,39 +30,14 @@ function RecipeProgressDrink() {
     };
 
     fetchApi();
-
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
-    if (inProgressRecipes === null) {
-      localStorage.setItem('inProgressRecipes', JSON.stringify({
-        cocktails: {
-          [id]: [],
-        },
-      }));
-    } else if (inProgressRecipes.cocktails === undefined) {
-      localStorage.setItem('inProgressRecipes', JSON.stringify({
-        cocktails: {
-          [id]: [],
-        },
-        ...inProgressRecipes,
-      }));
-    } else if (inProgressRecipes !== null && inProgressRecipes.cocktails !== undefined) {
-      setSaveMade(inProgressRecipes.cocktails[id]);
-      setMade(inProgressRecipes.cocktails[id]);
-      setMeals({ meals: inProgressRecipes.meals });
-    }
-
-    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-
-    if (favoriteRecipes === null) {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
-    } else setStorageFavorites(favoriteRecipes);
-
-    if (favoriteRecipes !== null) {
-      const trueFavorite = favoriteRecipes.some((fav) => fav.id === drinkId);
-      setIconHeart(!trueFavorite);
-    }
+    favorite(setStorageFavorites, drinkId, setIconHeart);
+    inProgressDrink(id, setSaveMade, setMade, setMeals);
+    recipesDone();
   }, [id, drinkId, setIconHeart, setRecipes, setStorageFavorites]);
+
+  useEffect(() => {
+    setAbility(made.length);
+  }, [made]);
 
   if (recipes[0] === undefined) return <p>Carregando...</p>;
 
@@ -67,24 +45,62 @@ function RecipeProgressDrink() {
     .includes('strIngredient') && recipe[1] !== null && recipe[1] !== '');
 
   const handleClick = ({ target }) => {
-    setAbility(ability + 1);
+    let array = made;
+    if (target.checked) setAbility(ability + 1);
+    else setAbility(ability - 1);
+
     const { value } = target;
-    setMade([...made, value]);
 
-    console.log(meals);
-    const progress = {
-      cocktails: {
-        [id]: [...made, value],
+    if (made.includes(value)) {
+      const filter = array.filter((fil) => fil !== value);
+      array = filter;
+      setMade(filter);
+    } else {
+      array = [...made, value];
+      setMade([...made, value]);
+    }
+
+    localStorage.setItem('inProgressRecipes', JSON.stringify({
+      meals: {
+        ...meals,
       },
-      meals,
-    };
+      cocktails: {
+        ...saveMade,
+        [id]: array,
+      },
+    }));
+  };
 
-    localStorage.setItem('inProgressRecipes', JSON.stringify(progress));
+  const handleClickFinished = () => {
+    let tags = [];
+    if (recipes[0].strTags === null) {
+      tags = [];
+    } else {
+      tags = recipes[0].strTags.includes(',') ? recipes[0].strTags.split(',')
+        : [recipes[0].strTags];
+    }
+
+    const data = new Date();
+    const finishedDrink = {
+      id: recipes[0].idDrink,
+      type: recipes[0].strGlass,
+      area: '',
+      category: recipes[0].strCategory,
+      alcoholicOrNot: recipes[0].strAlcoholic,
+      name: recipes[0].strDrink,
+      image: recipes[0].strDrinkThumb,
+      doneDate: `${data.getDate()}/${data.getMonth()}/${data.getFullYear()}`,
+      tags,
+    };
+    recipesMade(finishedDrink);
+
+    return history.push('/receitas-feitas');
   };
 
   return (
-    <div>
+    <main>
       <img
+        style={ { height: '20em' } }
         data-testid="recipe-photo"
         src={ recipes[0].strDrinkThumb }
         alt={ recipes[0].strDrink }
@@ -97,7 +113,7 @@ function RecipeProgressDrink() {
           ingrendients.map((ingredient, i) => (
             <label
               data-testid={ `${i}-ingredient-step` }
-              className={ checkedLocal(ingredient, saveMade) }
+              className={ checkedLocal(ingredient, saveMade, id) }
               key={ i }
               htmlFor={ ingredient[1] }
             >
@@ -109,7 +125,7 @@ function RecipeProgressDrink() {
                 value={ ingredient[1] }
                 onChange={ (e) => handleChecked(e) }
                 onClick={ handleClick }
-                defaultChecked={ checkedDefault(ingredient, saveMade) }
+                defaultChecked={ checkedDefault(ingredient, saveMade, id, setAbility) }
               />
             </label>
           ))
@@ -121,12 +137,12 @@ function RecipeProgressDrink() {
           data-testid="finish-recipe-btn"
           type="button"
           disabled={ ability !== ingrendients.length }
-          onClick={ () => history.push('/receitas-feitas') }
+          onClick={ handleClickFinished }
         >
           Finalizar receita
         </button>
       </form>
-    </div>
+    </main>
   );
 }
 

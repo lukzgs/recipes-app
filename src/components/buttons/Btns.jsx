@@ -8,10 +8,10 @@ import { ONE_SECOND } from '../../global/constantesGlobais';
 
 function Btns({ pathname, name }) {
   const { copy, iconHeart, storageFavorites,
-    recipes, setIconHeart, setCopy } = useContext(RevenuesContex);
+    recipes, setIconHeart, setCopy, clipboard } = useContext(RevenuesContex);
 
   const handleClickShare = () => {
-    navigator.clipboard.writeText(`http://localhost:3000/${name}/${pathname}`);
+    clipboard(`http://localhost:3000/${name}/${pathname}`);
     setCopy(false);
     setTimeout(() => {
       setCopy(true);

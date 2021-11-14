@@ -4,6 +4,7 @@ import { SearchDrink } from '../../services/SearchDrink';
 import Btns from '../../components/buttons/Btns';
 import RevenuesContex from '../../context/RevenuesContex';
 import { TOTAL_CARDS } from '../../global/constantesGlobais';
+import { favorite } from '../../global/localStorage';
 
 function DrinksRecipes() {
   const [recomendationFoods, setRecomendationFoods] = useState([]);
@@ -35,15 +36,7 @@ function DrinksRecipes() {
 
     fetchApi();
     apiRecomendationFoods();
-
-    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (favoriteRecipes === null) {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
-    } else setStorageFavorites(favoriteRecipes);
-    if (favoriteRecipes !== null) {
-      const trueFavorite = favoriteRecipes.some((fav) => fav.id === drinkId);
-      setIconHeart(!trueFavorite);
-    }
+    favorite(setStorageFavorites, drinkId, setIconHeart);
   }, [drinkId, idReceita, setIconHeart, setRecipes, setStorageFavorites]);
 
   if (recipes[0] === undefined) return <p>Carregando...</p>;
@@ -54,7 +47,6 @@ function DrinksRecipes() {
     .includes('strMeasure') && recipe[1] !== null && recipe[1] !== '');
 
   const handleClickStart = () => {
-    history.push(`/bebidas/${idReceita}/in-progress`);
     if (JSON.parse(localStorage.getItem('inProgressRecipes')) === null) {
       localStorage.setItem('inProgressRecipes', JSON.stringify({
         cocktails: {
@@ -62,6 +54,7 @@ function DrinksRecipes() {
         },
       }));
     }
+    history.push(`/bebidas/${idReceita}/in-progress`);
   };
 
   return (

@@ -3,10 +3,12 @@ import RecipeProgressFoods from '../../components/RecipesProgressFoods';
 
 function FoodInProgress() {
   return (
-    <h1>
-      FoodInProgress
+    <div>
+      <h1>
+        FoodInProgress
+      </h1>
       <RecipeProgressFoods />
-    </h1>
+    </div>
   );
 }
 
