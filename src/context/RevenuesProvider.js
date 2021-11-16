@@ -1,8 +1,11 @@
 import PropTypes from 'prop-types';
+
 import React, { useState, useEffect } from 'react';
 import RevenuesContex from './RevenuesContex';
 import { SearchFood } from '../services/SearchFood';
 import { SearchDrink } from '../services/SearchDrink';
+
+const clipboard = require('clipboard-copy');
 
 function RevenuesProvider({ children }) {
   const [revenues, setRevenues] = useState([]);
@@ -10,6 +13,11 @@ function RevenuesProvider({ children }) {
   // usados em categorias
   const [drinksCat, setDrinksCat] = useState([]);
   const [mealsCat, setMealsCat] = useState([]);
+  // usado nos btns
+  const [copy, setCopy] = useState(true);
+  const [iconHeart, setIconHeart] = useState(true);
+  const [storageFavorites, setStorageFavorites] = useState([]);
+  const [recipes, setRecipes] = useState([]);
 
   const value = {
     revenues,
@@ -20,6 +28,15 @@ function RevenuesProvider({ children }) {
     setMealsCat,
     drinksCat,
     setDrinksCat,
+    iconHeart,
+    setIconHeart,
+    copy,
+    setCopy,
+    storageFavorites,
+    setStorageFavorites,
+    recipes,
+    setRecipes,
+    clipboard,
   };
 
   useEffect(() => {

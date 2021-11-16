@@ -1,15 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import '../RecipeProgress.css';
 import { useHistory } from 'react-router';
 import { SearchFood } from '../services/SearchFood';
-import handleChecked from '../global/handleChecked';
+import { handleChecked, checkedDefault, checkedLocal } from '../global/checked';
+import RevenuesContex from '../context/RevenuesContex';
+import Btns from './buttons/Btns';
+import { favorite, inProgressFood,
+  recipesDone, recipesMade } from '../global/localStorage';
 
 function RecipeProgressFoods() {
-  const [revenueActual, setrevenueActual] = useState([]);
   const [saveMade, setSaveMade] = useState([]);
   const [ability, setAbility] = useState(0);
   const [made, setMade] = useState([]);
   const [cocktails, setCocktails] = useState([]);
+  const [foodId, setFoodId] = useState('');
+
+  const { recipes, setRecipes,
+    setStorageFavorites, setIconHeart } = useContext(RevenuesContex);
 
   const history = useHistory();
   const path = history.location.pathname.split('/');
@@ -18,72 +25,91 @@ function RecipeProgressFoods() {
   useEffect(() => {
     const fetchApi = async () => {
       const response = await SearchFood(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
-      setrevenueActual(response.meals);
+      setRecipes(response.meals);
+      setFoodId(response.meals[0].idMeal);
     };
 
     fetchApi();
+    favorite(setStorageFavorites, foodId, setIconHeart);
+    inProgressFood(id, setSaveMade, setMade, setCocktails);
+    recipesDone();
+  }, [foodId, id, setIconHeart, setRecipes, setStorageFavorites]);
 
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  if (recipes[0] === undefined) return <p>Carregando...</p>;
 
-    if (inProgressRecipes === null) {
-      localStorage.setItem('inProgressRecipes', JSON.stringify({
-        meals: {
-          [id]: [],
-        },
-      }));
-    } else if (inProgressRecipes.meals === undefined) {
-      localStorage.setItem('inProgressRecipes', JSON.stringify({
-        meals: {
-          [id]: [],
-        },
-        ...inProgressRecipes,
-      }));
-    } else if (inProgressRecipes !== null && inProgressRecipes.meals !== undefined) {
-      setSaveMade(inProgressRecipes.meals[id]);
-      setMade(inProgressRecipes.meals[id]);
-      setCocktails(inProgressRecipes.cocktails);
-    }
-  }, [id]);
-
-  if (revenueActual[0] === undefined) return <p>Carregando...</p>;
-
-  const ingrendients = Object.entries(revenueActual[0]).filter((recipe) => recipe[0]
+  const ingrendients = Object.entries(recipes[0]).filter((recipe) => recipe[0]
     .includes('strIngredient') && recipe[1] !== null && recipe[1] !== '');
 
   const handleClick = ({ target }) => {
-    setAbility(ability + 1);
+    let array = made;
+    if (target.checked) setAbility(ability + 1);
+    else setAbility(ability - 1);
+
     const { value } = target;
-    setMade([...made, value]);
 
-    const progress = {
-      cocktails,
-      meals: {
-        [id]: [...made, value],
+    if (made.includes(value)) {
+      const filter = array.filter((fil) => fil !== value);
+      array = filter;
+      setMade(filter);
+    } else {
+      array = [...made, value];
+      setMade([...made, value]);
+    }
+
+    localStorage.setItem('inProgressRecipes', JSON.stringify({
+      cocktails: {
+        ...cocktails,
       },
-    };
+      meals: {
+        ...saveMade,
+        [id]: array,
+      },
+    }));
+  };
 
-    localStorage.setItem('inProgressRecipes', JSON.stringify(progress));
+  const handleClickFinished = () => {
+    let tags = [];
+    if (recipes[0].strTags === null) {
+      tags = [];
+    } else {
+      tags = recipes[0].strTags.includes(',') ? recipes[0].strTags.split(',')
+        : [recipes[0].strTags];
+    }
+
+    const data = new Date();
+    const finishedMeal = {
+      id: recipes[0].idMeal,
+      type: recipes[0].strGlass,
+      area: recipes[0].strArea,
+      category: recipes[0].strCategory,
+      alcoholicOrNot: '',
+      name: recipes[0].strMeal,
+      image: recipes[0].strMealThumb,
+      doneDate: `${data.getDate()}/${data.getMonth()}/${data.getFullYear()}`,
+      tags,
+    };
+    recipesMade(finishedMeal);
+
+    return history.push('/receitas-feitas');
   };
 
   return (
-    <div>
+    <main>
       <img
+        style={ { height: '20em' } }
         data-testid="recipe-photo"
-        src={ revenueActual[0].strMealThumb }
-        alt={ revenueActual[0].strMeal }
+        src={ recipes[0].strMealThumb }
+        alt={ recipes[0].strMeal }
       />
-      <h1 data-testid="recipe-title">{revenueActual[0].strMeal}</h1>
-      <button type="button" data-testid="share-btn">Share</button>
-      <button type="button" data-testid="favorite-btn">Favorite</button>
-      <span data-testid="recipe-category">{revenueActual[0].strCategory}</span>
+      <h1 data-testid="recipe-title">{recipes[0].strMeal}</h1>
+      <Btns pathname={ id } name="comidas" />
+      <span data-testid="recipe-category">{recipes[0].strCategory}</span>
       <form>
         {
           ingrendients.map((ingredient, i) => (
             <label
               data-testid={ `${i}-ingredient-step` }
-              className={ (saveMade.length
-                !== 0 ? saveMade.some((m) => m === ingredient[1])
-                : false) ? 'checkedInput' : false }
+              className={ checkedLocal(ingredient, saveMade, id) }
               key={ i }
               htmlFor={ ingredient[1] }
             >
@@ -93,27 +119,26 @@ function RecipeProgressFoods() {
                 name="ingredient"
                 id={ ingredient[1] }
                 value={ ingredient[1] }
-                onChange={ (e) => handleChecked(e) }
+                onChange={ (e) => handleChecked(e, setAbility, ability) }
                 onClick={ handleClick }
-                defaultChecked={ saveMade.length
-                  !== 0 ? saveMade.some((m) => m === ingredient[1]) : false }
+                defaultChecked={ checkedDefault(ingredient, saveMade, id) }
               />
             </label>
           ))
         }
         <div>
-          <span data-testid="instructions">{revenueActual[0].strInstructions}</span>
+          <span data-testid="instructions">{recipes[0].strInstructions}</span>
         </div>
         <button
           data-testid="finish-recipe-btn"
           type="button"
           disabled={ ability !== ingrendients.length }
-          onClick={ () => history.push('/receitas-feitas') }
+          onClick={ handleClickFinished }
         >
           Finalizar receita
         </button>
       </form>
-    </div>
+    </main>
   );
 }
 

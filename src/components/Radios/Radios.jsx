@@ -10,7 +10,7 @@ function Radios({ value }) {
 
   const history = useHistory();
 
-  const { setRevenues, revenues } = useContext(RevenuesContex);
+  const { setRevenues, revenues, setDrinks, drinks } = useContext(RevenuesContex);
 
   const { location: { pathname } } = history;
 
@@ -20,10 +20,10 @@ function Radios({ value }) {
         ? history.push(`/comidas/${revenues[0].idMeal}`) : undefined;
     }
     if (pathname === '/bebidas') {
-      return revenues.length === 1
-        ? history.push(`/bebidas/${revenues[0].idDrink}`) : undefined;
+      return drinks.length === 1
+        ? history.push(`/bebidas/${drinks[0].idDrink}`) : undefined;
     }
-  }, [history, revenues, pathname]);
+  }, [history, revenues, pathname, drinks]);
 
   const handleClick = async () => {
     if (name === 'first-letter' && value.length > 1) {
@@ -47,7 +47,7 @@ function Radios({ value }) {
         return global
           .alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       }
-      await setRevenues(response.drinks);
+      await setDrinks(response.drinks);
     }
   };
 
@@ -92,7 +92,6 @@ function Radios({ value }) {
         onClick={ handleClick }
       >
         Buscar
-
       </button>
     </form>
   );
