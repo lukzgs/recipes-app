@@ -1,15 +1,8 @@
 import React, { useContext } from 'react';
 import RevenuesContex from '../context/RevenuesContex';
 
-export const control = false;
+export const control = true;
 const MAX_LENGTH = 11;
-
-export function Filter(category) {
-  const { revenues } = useContext(RevenuesContex);
-  const mealsFilter = revenues.filter((element) => element.strCategory === category);
-  console.log(mealsFilter);
-  return mealsFilter;
-}
 
 export function MapMeals(meals) {
   return (
@@ -29,9 +22,9 @@ export function MapMeals(meals) {
 
 export default function CardsFood() {
   const { revenues } = useContext(RevenuesContex);
-  console.log(revenues);
+
   const revenuesTwelve = revenues.filter((revenue, index) => index <= MAX_LENGTH);
 
   // descobrir como arrumar esse segundo parametro
-  return control ? MapMeals(revenuesTwelve) : MapMeals(Filter('Side'));
+  return control ? MapMeals(revenuesTwelve) : MapMeals('valueFood');
 }

@@ -10,7 +10,9 @@ function RevenuesProvider({ children }) {
   // usados em categorias
   const [drinksCat, setDrinksCat] = useState([]);
   const [mealsCat, setMealsCat] = useState([]);
-  const [type, setType] = useState([]);
+  const [filterMeals, setFilterMeals] = useState([]);
+  const [filterDrinks, setFilterDrinks] = useState([]);
+  const [valueFood, setValueFood] = useState('');
 
   const value = {
     revenues,
@@ -21,8 +23,12 @@ function RevenuesProvider({ children }) {
     setMealsCat,
     drinksCat,
     setDrinksCat,
-    type,
-    setType,
+    filterMeals,
+    setFilterMeals,
+    filterDrinks,
+    setFilterDrinks,
+    valueFood,
+    setValueFood,
   };
 
   useEffect(() => {
@@ -59,7 +65,23 @@ function RevenuesProvider({ children }) {
   }, []);
 
   // useEffect(() => {
-  //   setType();
+  //   const fetchApiFilterMeals = async (category) => {
+  //     const response = await SearchFood(
+  //       `www.themealdb.com/api/json/v1/1/filter.php?c=${category}`,
+  //     );
+  //     setFilterMeals(response.meals);
+  //   };
+  //   fetchApiFilterMeals(valueFood);
+  // }, [valueFood]);
+
+  // useEffect(() => {
+  //   const fetchApiFilterDrinks = async (category) => {
+  //     const response = await SearchDrink(
+  //       `www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`,
+  //     );
+  //     setFilterDrinks(response.drinks);
+  //   };
+  //   fetchApiFilterDrinks();
   // }, []);
 
   return (
