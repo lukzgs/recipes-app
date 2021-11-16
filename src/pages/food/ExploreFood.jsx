@@ -6,7 +6,7 @@ function ExploreFood() {
   return (
     <div>
       <Header title="Explorar Comidas" />
-      <h1>ExploreFood</h1>
+      <h1>ExploreFood </h1>
       <Footer data-testid="food-bottom-btn" />
     </div>
   );
