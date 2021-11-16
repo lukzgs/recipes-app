@@ -22,6 +22,7 @@ function DrinksRecipes() {
     const arrayFoods = responseRecomendationFoods.meals;
     setRecomendationFoods(arrayFoods);
   };
+
   useEffect(() => {
     const fetchApi = async () => {
       const response = await SearchDrink(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idReceita}`);
@@ -39,12 +40,18 @@ function DrinksRecipes() {
     favorite(setStorageFavorites, drinkId, setIconHeart);
   }, [drinkId, idReceita, setIconHeart, setRecipes, setStorageFavorites]);
 
+  useEffect(() => () => {
+    setRecipes([]);
+  }, [setRecipes]);
+
   if (recipes[0] === undefined) return <p>Carregando...</p>;
 
   const ingrendients = Object.entries(recipes[0]).filter((recipe) => recipe[0]
-    .includes('strIngredient') && recipe[1] !== null && recipe[1] !== '');
+    .includes('strIngredient') && recipe[1] !== null && recipe[1] !== '')
+    .map((recipe) => recipe[1]);
   const measures = Object.entries(recipes[0]).filter((recipe) => recipe[0]
-    .includes('strMeasure') && recipe[1] !== null && recipe[1] !== '');
+    .includes('strMeasure') && recipe[1] !== null && recipe[1] !== '')
+    .map((recipe) => recipe[1]);
 
   const handleClickStart = () => {
     if (JSON.parse(localStorage.getItem('inProgressRecipes')) === null) {
@@ -72,7 +79,7 @@ function DrinksRecipes() {
         <ul>
           { ingrendients.map((ingre, index) => (
             <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-              {`${ingre[1]} - ${measures[index][1]}`}
+              {`${ingre} - ${measures[index] === undefined ? '' : measures[index]}`}
             </li>))}
         </ul>
         <p data-testid="instructions">{drink.strInstructions}</p>

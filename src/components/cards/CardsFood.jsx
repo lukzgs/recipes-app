@@ -1,13 +1,15 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import RevenuesContex from '../../context/RevenuesContex';
+import { MAX_LENGTH } from '../../global/constantesGlobais';
 
-export const control = true;
-const MAX_LENGTH = 11;
+function CardsFood() {
+  const { revenues } = useContext(RevenuesContex);
 
-export function MapMeals(meals) {
+  const revenuesTwelve = revenues.filter((revenue, index) => index <= MAX_LENGTH);
+
   return (
-    meals.map(({ idMeal, strMealThumb, strMeal }, index) => (
+    revenuesTwelve.map(({ idMeal, strMealThumb, strMeal }, index) => (
       <Link to={ `/comidas/${idMeal}` } key={ idMeal }>
         <div data-testid={ `${index}-recipe-card` }>
           <img
@@ -23,11 +25,4 @@ export function MapMeals(meals) {
   );
 }
 
-export default function CardsFood() {
-  const { revenues } = useContext(RevenuesContex);
-
-  const revenuesTwelve = revenues.filter((revenue, index) => index <= MAX_LENGTH);
-
-  // descobrir como arrumar esse segundo parametro
-  return control ? MapMeals(revenuesTwelve) : MapMeals('valueFood');
-}
+export default CardsFood;
