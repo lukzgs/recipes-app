@@ -4,6 +4,8 @@ import RevenuesContex from './RevenuesContex';
 import { SearchFood } from '../services/SearchFood';
 import { SearchDrink } from '../services/SearchDrink';
 
+const clipboard = require('clipboard-copy');
+
 function RevenuesProvider({ children }) {
   const [revenues, setRevenues] = useState([]);
   const [drinks, setDrinks] = useState([]);
@@ -13,6 +15,11 @@ function RevenuesProvider({ children }) {
   const [filterMeals, setFilterMeals] = useState([]);
   const [filterDrinks, setFilterDrinks] = useState([]);
   const [valueFood, setValueFood] = useState('');
+  // usado nos btns
+  const [copy, setCopy] = useState(true);
+  const [iconHeart, setIconHeart] = useState(true);
+  const [storageFavorites, setStorageFavorites] = useState([]);
+  const [recipes, setRecipes] = useState([]);
 
   const value = {
     revenues,
@@ -29,6 +36,15 @@ function RevenuesProvider({ children }) {
     setFilterDrinks,
     valueFood,
     setValueFood,
+    iconHeart,
+    setIconHeart,
+    copy,
+    setCopy,
+    storageFavorites,
+    setStorageFavorites,
+    recipes,
+    setRecipes,
+    clipboard,
   };
 
   useEffect(() => {
@@ -63,26 +79,6 @@ function RevenuesProvider({ children }) {
     };
     fetchApiDrinksCat();
   }, []);
-
-  // useEffect(() => {
-  //   const fetchApiFilterMeals = async (category) => {
-  //     const response = await SearchFood(
-  //       `www.themealdb.com/api/json/v1/1/filter.php?c=${category}`,
-  //     );
-  //     setFilterMeals(response.meals);
-  //   };
-  //   fetchApiFilterMeals(valueFood);
-  // }, [valueFood]);
-
-  // useEffect(() => {
-  //   const fetchApiFilterDrinks = async (category) => {
-  //     const response = await SearchDrink(
-  //       `www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`,
-  //     );
-  //     setFilterDrinks(response.drinks);
-  //   };
-  //   fetchApiFilterDrinks();
-  // }, []);
 
   return (
     <RevenuesContex.Provider value={ value }>

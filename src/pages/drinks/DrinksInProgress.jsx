@@ -1,10 +1,14 @@
 import React from 'react';
+import RecipeProgressDrink from '../../components/RecipeProgressDrink';
 
 function DrinksInProgress() {
   return (
-    <h1>
-      DrinksInProgress
-    </h1>
+    <div>
+      <h1>
+        DrinksInProgress
+      </h1>
+      <RecipeProgressDrink />
+    </div>
   );
 }
 

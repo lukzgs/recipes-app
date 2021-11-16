@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import RevenuesContex from '../context/RevenuesContex';
+import RevenuesContex from '../../context/RevenuesContex';
 
 export const control = true;
 const MAX_LENGTH = 11;
