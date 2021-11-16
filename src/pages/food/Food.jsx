@@ -3,7 +3,7 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import '../../index.css';
 import CardsFood from '../../components/CardsFood';
-import { MealsCatBtn } from '../../components/CategoryBtn';
+import MealsCatBtn from '../../components/MealsCatBtn';
 
 export default function Food() {
   return (
