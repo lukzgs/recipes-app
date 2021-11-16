@@ -40,7 +40,7 @@ function FoodRecipes() {
     favorite(setStorageFavorites, foodId, setIconHeart);
   }, [foodId, idReceita, setIconHeart, setStorageFavorites, setRecipes]);
 
-  if (recipes[0] === undefined) return <p>Carregando...</p>;
+  if (recipes.length === 0) return <p>Carregando...</p>;
 
   const ingrendients = Object.entries(recipes[0]).filter((recipe) => recipe[0]
     .includes('strIngredient') && recipe[1] !== null && recipe[1] !== '');
