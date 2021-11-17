@@ -44,7 +44,6 @@ function ExploreFood() {
             Me Surpreenda!
           </button>
         </Link>
-
       </div>
       <Footer data-testid="food-bottom-btn" />
     </div>
