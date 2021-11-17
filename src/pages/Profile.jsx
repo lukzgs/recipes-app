@@ -7,6 +7,10 @@ function Profile() {
     <div>
       <Header title="Perfil" />
       <h1>Profile</h1>
+      <p data-testid="profile-email">Email</p>
+      <button type="button" data-testid="profile-done-btn">Receitas Feitas</button>
+      <button type="button" data-testid="profile-favorite-btn">Receitas Favoritas</button>
+      <button type="button" data-testid="profile-logout-btn">Sair</button>
       <Footer />
     </div>
   );
