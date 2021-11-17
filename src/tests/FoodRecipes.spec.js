@@ -14,6 +14,7 @@ describe('Receita de Comidas', () => {
   const RECOMENDATIONS_LENGTH = 6;
   const INGREDIENTS_LENGTH = 8;
   const CONTINUE_RECIPE = 'start-recipe-btn';
+
   beforeEach(async () => {
     const { history } = renderWithRouter(<App />);
     history.push(pathWay);
