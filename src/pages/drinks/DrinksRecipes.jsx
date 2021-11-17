@@ -37,18 +37,16 @@ function DrinksRecipes() {
 
     fetchApi();
     apiRecomendationFoods();
+
     favorite(setStorageFavorites, drinkId, setIconHeart);
   }, [drinkId, idReceita, setIconHeart, setRecipes, setStorageFavorites]);
 
-  useEffect(() => () => {
-    setRecipes([]);
-  }, [setRecipes]);
-
-  if (recipes.length === 0) return <p>Carregando...</p>;
+  if (recipes === undefined || recipes[0] === undefined) return <p>Carregando...</p>;
 
   const ingrendients = Object.entries(recipes[0]).filter((recipe) => recipe[0]
     .includes('strIngredient') && recipe[1] !== null && recipe[1] !== '')
     .map((recipe) => recipe[1]);
+
   const measures = Object.entries(recipes[0]).filter((recipe) => recipe[0]
     .includes('strMeasure') && recipe[1] !== null && recipe[1] !== '')
     .map((recipe) => recipe[1]);
