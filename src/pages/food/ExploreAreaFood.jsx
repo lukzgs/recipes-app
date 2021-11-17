@@ -42,7 +42,7 @@ function ExploreAreaFood() {
           onChange={ (e) => setNameArea(e.target.value) }
         >
           <option
-            data-testid="all-option"
+            data-testid="All-option"
           >
             All
           </option>

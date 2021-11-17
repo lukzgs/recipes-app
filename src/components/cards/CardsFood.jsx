@@ -10,7 +10,7 @@ function CardsFood() {
   return (
     revenuesTwelve.map(({ idMeal, strMealThumb, strMeal }, index) => (
       <Link to={ `/comidas/${idMeal}` } key={ idMeal }>
-        <div data-testid={ `${index}-ingredient-card` }>
+        <div data-testid={ `${index}-recipe-card` }>
           <img
             data-testid={ `${index}-card-img` }
             style={ { height: '5em' } }
