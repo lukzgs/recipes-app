@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import CardsDrink from '../../components/cards/CardsDrink';
-import { DrinksCatBtn } from '../../components/CategoryBtn';
+import DrinksCatBtn from '../../components/DrinksCatBtn';
 
 function Drinks() {
   return (

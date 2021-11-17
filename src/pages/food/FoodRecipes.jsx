@@ -37,15 +37,19 @@ function FoodRecipes() {
 
     fetchApi();
     apiRecomDrinks();
+
     favorite(setStorageFavorites, foodId, setIconHeart);
   }, [foodId, idReceita, setIconHeart, setStorageFavorites, setRecipes]);
 
-  if (recipes[0] === undefined) return <p>Carregando...</p>;
+  if (recipes === undefined || recipes[0] === undefined) return <p>Carregando...</p>;
 
   const ingrendients = Object.entries(recipes[0]).filter((recipe) => recipe[0]
-    .includes('strIngredient') && recipe[1] !== null && recipe[1] !== '');
+    .includes('strIngredient') && recipe[1] !== null && recipe[1] !== '')
+    .map((recipe) => recipe[1]);
+
   const measures = Object.entries(recipes[0]).filter((recipe) => recipe[0]
-    .includes('strMeasure') && recipe[1] !== null && recipe[1] !== '');
+    .includes('strMeasure') && recipe[1] !== null && recipe[1] !== '')
+    .map((recipe) => recipe[1]);
 
   const handleClickStart = () => {
     history.push(`/comidas/${idReceita}/in-progress`);
@@ -73,7 +77,7 @@ function FoodRecipes() {
         <ul>
           { ingrendients.map((ingre, index) => (
             <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-              {`${ingre[1]} - ${measures[index][1]}`}
+              {`${ingre} - ${measures[index]}`}
             </li>))}
         </ul>
         <p data-testid="instructions">{food.strInstructions}</p>
@@ -83,7 +87,7 @@ function FoodRecipes() {
         <div className="scroll flex">
           {recomendationsDrinks.slice(0, TOTAL_CARDS).map((recomendation, index) => (
             <div
-              key={ recomendation.idDrinks }
+              key={ recomendation.idDrink }
               data-testid={ `${index}-recomendation-card` }
             >
               <img
