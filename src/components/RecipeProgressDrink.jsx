@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import '../RecipeProgress.css';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import { SearchDrink } from '../services/SearchDrink';
 import { handleChecked, checkedDefault, checkedLocal } from '../global/checked';
 import Btns from './buttons/Btns';
