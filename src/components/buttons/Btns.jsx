@@ -11,7 +11,11 @@ function Btns({ pathname, name }) {
     recipes, setIconHeart, setCopy, clipboard } = useContext(RevenuesContex);
 
   const handleClickShare = () => {
-    clipboard(`http://localhost:3000/${name}/${pathname}`);
+    try {
+      clipboard(`http://localhost:3000/${name}/${pathname}`);
+    } catch (error) {
+      clipboard(error);
+    }
     setCopy(false);
     setTimeout(() => {
       setCopy(true);
