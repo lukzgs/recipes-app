@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-
 import React, { useState, useEffect } from 'react';
 import RevenuesContex from './RevenuesContex';
 import { SearchFood } from '../services/SearchFood';
@@ -13,6 +12,9 @@ function RevenuesProvider({ children }) {
   // usados em categorias
   const [drinksCat, setDrinksCat] = useState([]);
   const [mealsCat, setMealsCat] = useState([]);
+  const [filterMeals, setFilterMeals] = useState([]);
+  const [filterDrinks, setFilterDrinks] = useState([]);
+  const [valueFood, setValueFood] = useState('');
   // usado nos btns
   const [copy, setCopy] = useState(true);
   const [iconHeart, setIconHeart] = useState(true);
@@ -28,6 +30,12 @@ function RevenuesProvider({ children }) {
     setMealsCat,
     drinksCat,
     setDrinksCat,
+    filterMeals,
+    setFilterMeals,
+    filterDrinks,
+    setFilterDrinks,
+    valueFood,
+    setValueFood,
     iconHeart,
     setIconHeart,
     copy,
