@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MAX_LENGTH } from '../../global/constantesGlobais';
 import PropTypes from 'prop-types';
-
+import { MAX_LENGTH } from '../../global/constantesGlobais';
 
 function CardsByArea({ foodArea }) {
   if (foodArea === null) return <p>Carregando..</p>;
