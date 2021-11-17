@@ -4,6 +4,7 @@ const INGREDIENT = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
 const BYAREA = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
 const AREA = 'https://www.themealdb.com/api/json/v1/1/filter.php?a=';
 const RANDOM = 'https://www.themealdb.com/api/json/v1/1/random.php';
+const ALL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 
 export const SearchFood = async (api) => {
   const result = await fetch(api);
@@ -25,6 +26,8 @@ export const SwitchFood = (radios, value) => {
     return SearchFood(`${AREA}${value}`);
   case 'byArea':
     return SearchFood(`${BYAREA}`);
+  case 'All':
+    return SearchFood(`${ALL}`);
   default:
     break;
   }

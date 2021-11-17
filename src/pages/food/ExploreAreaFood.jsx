@@ -13,7 +13,7 @@ function ExploreAreaFood() {
     const fetchApi = async () => {
       const result = await SwitchFood('byArea');
       setByArea(result.meals);
-      const resultName = await SwitchFood('area', 'All');
+      const resultName = await SwitchFood('All');
       setFoodArea(resultName.meals);
     };
     fetchApi();
@@ -21,8 +21,13 @@ function ExploreAreaFood() {
 
   useEffect(() => {
     const fetchApi = async () => {
+      if( nameArea === 'All') {
+        const resultName = await SwitchFood('All');
+        setFoodArea(resultName.meals);
+      } else {
       const resultName = await SwitchFood('area', nameArea);
       setFoodArea(resultName.meals);
+      }
     };
     fetchApi();
   }, [nameArea]);
@@ -37,7 +42,7 @@ function ExploreAreaFood() {
           onChange={ (e) => setNameArea(e.target.value) }
         >
           <option
-            data-testid="All-option"
+            data-testid="all-option"
           >
             All
           </option>
