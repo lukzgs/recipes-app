@@ -32,3 +32,23 @@ export const mockDrinkRecomendations = [
   'Dal fry',
   'Poutine',
 ];
+
+export const mockFoodRecipe = [
+  'penne rigate - 1 pound',
+  'olive oil - 1/4 cup',
+  'garlic - 3 cloves',
+  'chopped tomatoes - 1 tin',
+  'red chile flakes - 1/2 teaspon',
+  'italian seasoning - 1/2 teaspoon',
+  'brasil - 6 leaves',
+  'Parmigiano-Reggiano - spinkling',
+];
+
+export const mockFoodRecomendations = [
+  'GG',
+  'A1',
+  'ABC',
+  'Kir',
+  '747',
+  '252',
+];
