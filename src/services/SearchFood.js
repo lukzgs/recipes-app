@@ -1,6 +1,8 @@
 const NAME = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 const FIRST_LETTER = 'https://www.themealdb.com/api/json/v1/1/search.php?f=';
 const INGREDIENT = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
+const BYAREA = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+const AREA = 'https://www.themealdb.com/api/json/v1/1/filter.php?a=';
 const RANDOM = 'https://www.themealdb.com/api/json/v1/1/random.php';
 
 export const SearchFood = async (api) => {
@@ -19,6 +21,10 @@ export const SwitchFood = (radios, value) => {
     return SearchFood(`${FIRST_LETTER}${value}`);
   case 'random':
     return SearchFood(`${RANDOM}`);
+  case 'area':
+    return SearchFood(`${AREA}${value}`);
+  case 'byArea':
+    return SearchFood(`${BYAREA}`);
   default:
     break;
   }
