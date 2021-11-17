@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router-dom';
 import { SearchDrink } from '../../services/SearchDrink';
 import Btns from '../../components/buttons/Btns';
 import RevenuesContex from '../../context/RevenuesContex';

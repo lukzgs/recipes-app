@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MAX_LENGTH } from '../../global/constantesGlobais';
+import PropTypes from 'prop-types';
 
-function CardsFood({ foodArea }) {
+
+function CardsByArea({ foodArea }) {
   if (foodArea === null) return <p>Carregando..</p>;
 
   const areas = foodArea.filter((area, index) => index <= MAX_LENGTH);
@@ -24,4 +26,8 @@ function CardsFood({ foodArea }) {
   );
 }
 
-export default CardsFood;
+CardsByArea.propTypes = {
+  foodArea: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
+export default CardsByArea;
