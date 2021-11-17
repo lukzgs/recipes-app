@@ -21,12 +21,12 @@ function ExploreAreaFood() {
 
   useEffect(() => {
     const fetchApi = async () => {
-      if( nameArea === 'All') {
+      if (nameArea === 'All') {
         const resultName = await SwitchFood('All');
         setFoodArea(resultName.meals);
       } else {
-      const resultName = await SwitchFood('area', nameArea);
-      setFoodArea(resultName.meals);
+        const resultName = await SwitchFood('area', nameArea);
+        setFoodArea(resultName.meals);
       }
     };
     fetchApi();
