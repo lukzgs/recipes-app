@@ -13,7 +13,6 @@ describe('Receita de Bebidas', () => {
   const CONTINUE_RECIPE = 'start-recipe-btn';
   const pathWay = '/bebidas/17222';
   const INGREDIENTS_LENGTH = 4;
-  const RECOMENDATIONS_LENGTH = 6;
 
   beforeEach(async () => {
     const { history } = renderWithRouter(<App />);
@@ -54,11 +53,8 @@ describe('Receita de Bebidas', () => {
     expect(screen.getByTestId('instructions')).toBeInTheDocument();
   });
   it('Verifica se as recomendações estão na tela', () => {
-    const recomendations = mockDrinkRecomendations.map((recomend, index) => {
-      const recomende = screen.getByTestId(`${index}-recomendation-title`);
-      return recomende;
-    });
-    expect(recomendations).toHaveLength(RECOMENDATIONS_LENGTH);
+    mockDrinkRecomendations.map((recomend, index) => expect(screen
+      .getByTestId(`${index}-recomendation-title`)).toBeInTheDocument());
   });
   it(('Verifica se o botão "Continuar Receita" esta na tela'), () => {
     expect(screen.getByTestId(CONTINUE_RECIPE)).toBeInTheDocument();
