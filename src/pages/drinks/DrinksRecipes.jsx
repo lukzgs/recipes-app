@@ -29,7 +29,6 @@ function DrinksRecipes() {
       setRecipes(response.drinks);
       setDrinkId(response.drinks[0].idDrink);
     };
-
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (inProgressRecipes !== null && inProgressRecipes.drinks !== undefined) {
       setAbility(inProgressRecipes.drinks[idReceita].length);
