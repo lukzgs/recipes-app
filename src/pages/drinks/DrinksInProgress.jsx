@@ -4,9 +4,7 @@ import RecipeProgressDrink from '../../components/RecipeProgressDrink';
 function DrinksInProgress() {
   return (
     <div>
-      <h1>
-        DrinksInProgress
-      </h1>
+      <h1>DrinksInProgress</h1>
       <RecipeProgressDrink />
     </div>
   );
