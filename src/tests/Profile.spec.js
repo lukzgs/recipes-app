@@ -35,21 +35,15 @@ describe('Testando componente Profile', () => {
     renderWithRouter(<Profile />);
 
     const userLocal = { email: 'email@email.com' };
-
     localStorage.setItem('user', JSON.stringify(userLocal));
     const user = localStorage.getItem('user');
-
     expect(user).toStrictEqual('{"email":"email@email.com"}');
   });
   it('Verificando se ao o perfil email será criado com null', () => {
     renderWithRouter(<Profile />);
 
     const userLocal = { '': '' };
-
     localStorage.setItem('user', JSON.stringify(userLocal));
-    const user = localStorage.getItem('user');
-    console.log(user);
-
     const email = screen.getByTestId('profile-email');
     expect(email).toBeInTheDocument(false);
   });
