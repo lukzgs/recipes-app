@@ -96,7 +96,8 @@ function RecipeProgressFoods() {
   return (
     <main>
       <img
-        style={ { height: '20em' } }
+        style={ { maxWidth: '100%',
+          maxHeight: '100%' } }
         data-testid="recipe-photo"
         src={ recipes[0].strMealThumb }
         alt={ recipes[0].strMeal }
@@ -107,23 +108,25 @@ function RecipeProgressFoods() {
       <form>
         {
           ingrendients.map((ingredient, i) => (
-            <label
-              data-testid={ `${i}-ingredient-step` }
-              className={ checkedLocal(ingredient, saveMade, id) }
-              key={ i }
-              htmlFor={ ingredient[1] }
-            >
-              {ingredient[1]}
-              <input
-                type="checkbox"
-                name="ingredient"
-                id={ ingredient[1] }
-                value={ ingredient[1] }
-                onChange={ (e) => handleChecked(e, setAbility, ability) }
-                onClick={ handleClick }
-                defaultChecked={ checkedDefault(ingredient, saveMade, id) }
-              />
-            </label>
+            <div key={ i } className="form-check">
+              <label
+                data-testid={ `${i}-ingredient-step` }
+                className={ `form-check-label ${checkedLocal(ingredient, saveMade, id)}` }
+                htmlFor={ ingredient[1] }
+              >
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  name="ingredient"
+                  id={ ingredient[1] }
+                  value={ ingredient[1] }
+                  onChange={ (e) => handleChecked(e, setAbility, ability) }
+                  onClick={ handleClick }
+                  defaultChecked={ checkedDefault(ingredient, saveMade, id) }
+                />
+                {ingredient[1]}
+              </label>
+            </div>
           ))
         }
         <div>

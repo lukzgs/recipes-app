@@ -1,0 +1,16 @@
+.container-card {
+  flex-direction: row;
+  max-width: 22em;
+}
+
+.img-card {
+  height: 10em;
+}
+
+.text-horizontal {
+  font-size: 0.7em;
+}
+
+.font {
+  font-size: 0.7em;
+}

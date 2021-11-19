@@ -9,6 +9,8 @@ const clipboard = require('clipboard-copy');
 function RevenuesProvider({ children }) {
   const [revenues, setRevenues] = useState([]);
   const [drinks, setDrinks] = useState([]);
+  // usado no header e footer
+  const [search, setSearch] = useState(true);
   // usados em categorias
   const [drinksCat, setDrinksCat] = useState([]);
   const [mealsCat, setMealsCat] = useState([]);
@@ -48,6 +50,8 @@ function RevenuesProvider({ children }) {
     recipes,
     setRecipes,
     clipboard,
+    search,
+    setSearch,
     // mealsByArea,
     // setMealsByArea,
     // mealsByIngredient,

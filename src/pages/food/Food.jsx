@@ -10,7 +10,7 @@ export default function Food() {
     <div>
       <Header title="Comidas" />
       <MealsCatBtn />
-      <CardsFood param="meals" />
+      <CardsFood />
       <Footer />
     </div>
   );

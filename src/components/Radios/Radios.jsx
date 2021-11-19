@@ -52,48 +52,61 @@ function Radios({ value }) {
   };
 
   return (
-    <form>
-      <label htmlFor="ingredient">
-        Ingrediente
-        <input
-          id="ingredient"
-          data-testid="ingredient-search-radio"
-          type="radio"
-          value="ingredient"
-          name="filter"
-          onChange={ (e) => setName(e.target.value) }
-        />
-      </label>
-      <label htmlFor="name">
-        Nome
-        <input
-          id="name"
-          data-testid="name-search-radio"
-          type="radio"
-          value="name"
-          name="filter"
-          onChange={ (e) => setName(e.target.value) }
-        />
-      </label>
-      <label htmlFor="first-letter">
-        Primeira letra
-        <input
-          id="first-letter"
-          data-testid="first-letter-search-radio"
-          type="radio"
-          value="first-letter"
-          name="filter"
-          onChange={ (e) => setName(e.target.value) }
-        />
-      </label>
+    <div>
+      <form className="form-check">
+        <label className="form-check-inline form-check-label" htmlFor="ingredient">
+          <input
+            className="form-check-input"
+            id="ingredient"
+            data-testid="ingredient-search-radio"
+            type="radio"
+            value="ingredient"
+            name="filter"
+            onChange={ (e) => setName(e.target.value) }
+          />
+          Ingrediente
+        </label>
+
+        <label className="form-check-inline form-check-label" htmlFor="name">
+          <input
+            className="form-check-input"
+            id="name"
+            data-testid="name-search-radio"
+            type="radio"
+            value="name"
+            name="filter"
+            onChange={ (e) => setName(e.target.value) }
+          />
+          Nome
+        </label>
+        <label
+          className="form-check-inline form-check-label"
+          htmlFor="first-letter"
+        >
+          <input
+            className="form-check-input"
+            id="first-letter"
+            data-testid="first-letter-search-radio"
+            type="radio"
+            value="first-letter"
+            name="filter"
+            onChange={ (e) => setName(e.target.value) }
+          />
+          Primeira letra
+        </label>
+      </form>
       <button
+        disabled={ name.length === 0 || value.length === 0 }
+        className="ml-3 mb-2 btn-sm btn btn-primary"
+        style={ { width: '9em' } }
         data-testid="exec-search-btn"
         type="button"
         onClick={ handleClick }
       >
         Buscar
       </button>
-    </form>
+    </div>
+
   );
 }
 

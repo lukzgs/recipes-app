@@ -5,8 +5,9 @@ import { SearchDrink } from '../services/SearchDrink';
 const MAX_LENGTH = 4;
 
 function DrinksCatBtn() {
-  const { drinksCat, setDrinks } = useContext(RevenuesContex);
   const [toggle, setToggle] = useState('');
+
+  const { drinksCat, setDrinks, search } = useContext(RevenuesContex);
 
   const eventHandler = async ({ target }) => {
     const { value } = target;
@@ -28,22 +29,25 @@ function DrinksCatBtn() {
 
   const drinks = drinksCat.filter((drink, i) => i <= MAX_LENGTH);
 
-  return (
-    <form>
+  return search ? (
+    <form className="mt-2 col-16 mx-auto">
       { drinks.map(({ strCategory }, i) => (
-        <div key={ i }>
-          <button
-            type="button"
-            id={ `${strCategory}-category-btn` }
-            value={ strCategory }
-            data-testid={ `${strCategory}-category-filter` }
-            onClick={ eventHandler }
-          >
-            { strCategory }
-          </button>
-        </div>
+        <button
+          className=" ml-1 mb-1 btn-sm btn btn-primary"
+          style={ { width: '11.5em', fontSize: '10px' } }
+          key={ i }
+          type="button"
+          id={ `${strCategory}-category-btn` }
+          value={ strCategory }
+          data-testid={ `${strCategory}-category-filter` }
+          onClick={ eventHandler }
+        >
+          { strCategory }
+        </button>
       ))}
       <button
+        className=" ml-1 mb-1 btn-sm btn btn-primary"
+        style={ { width: '11.5em', fontSize: '10px' } }
         type="button"
         id="All-category-btn"
         value="All"
@@ -53,6 +57,8 @@ function DrinksCatBtn() {
         All
       </button>
     </form>
+  ) : (
+    null
   );
 }
 

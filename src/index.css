@@ -12,7 +12,13 @@ code {
     monospace;
 }
 
-footer {
-  position: fixed;
-  bottom: 0px;
+.footer { 
+  display: flex;
+  justify-content: space-between;
+  background-color:gray;
+  padding-top: 10px;
+}
+
+.header {
+  background-color:gray;
 }
