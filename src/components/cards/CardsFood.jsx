@@ -5,7 +5,6 @@ import { MAX_LENGTH } from '../../global/constantesGlobais';
 
 function CardsFood() {
   const { revenues } = useContext(RevenuesContex);
-  console.log(revenues);
   const revenuesTwelve = revenues.filter((revenue, index) => index <= MAX_LENGTH);
 
   return (
