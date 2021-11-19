@@ -1,15 +1,10 @@
 import React from 'react';
 import { screen } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
-import Login from '../pages/Login';
 import Profile from '../pages/Profile';
 import renderWithRouter from './utils/renderWithRouter';
 
 describe('Testando componente Profile', () => {
-  const EMAIL_VALIDAD = 'email@algo.com';
-  const ID_EMAIL = 'email-input';
-  const ID_PASSWORD = 'password-input';
-  const ID_BTN = 'login-submit-btn';
   it('Testando se no componente Profile ao clicar no botão sair.', () => {
     const { history } = renderWithRouter(<Profile />);
     const btn = screen.getByTestId('profile-logout-btn');
@@ -36,43 +31,26 @@ describe('Testando componente Profile', () => {
     const { pathname } = history.location;
     expect(pathname).toBe('/receitas-favoritas');
   });
-  // it('Verificando If/else', () => {
-  //   renderWithRouter(<Profile />);
-  //   localStorage.setItem('user', '{"email":"xxx@mail.com",}');
+  it('Verificando se na tela de perfil aparece o localStorage com email', () => {
+    renderWithRouter(<Profile />);
 
-  //   const local = localStorage.getItem('user');
-  //   console.log(local);
+    const userLocal = { email: 'email@email.com' };
 
-  //   const usuario = screen.getByText(local.email);
+    localStorage.setItem('user', JSON.stringify(userLocal));
+    const user = localStorage.getItem('user');
 
-  //   expect(usuario).toBeInTheDocument();
-  // });
-  it('Verificando se ao o perfil NAme', () => {
-    const { history } = renderWithRouter(<Login />);
+    expect(user).toStrictEqual('{"email":"email@email.com"}');
+  });
+  it('Verificando se ao o perfil email será criado com null', () => {
+    renderWithRouter(<Profile />);
 
-    const inputEmail = screen.getByTestId(ID_EMAIL);
-    const inputPassword = screen.getByTestId(ID_PASSWORD);
-    const btn = screen.getByTestId(ID_BTN);
+    const userLocal = { '': '' };
 
-    expect(inputEmail).toBeInTheDocument();
-    expect(inputPassword).toBeInTheDocument();
-    expect(btn).toBeInTheDocument();
+    localStorage.setItem('user', JSON.stringify(userLocal));
+    const user = localStorage.getItem('user');
+    console.log(user);
 
-    userEvent.type(inputEmail, EMAIL_VALIDAD);
-    userEvent.type(inputPassword, '1234567');
-    userEvent.click(btn);
-
-    const { pathname } = history.location;
-    expect(pathname).toBe('/comidas');
-
-    // const perfil = screen.getByTestId('profile-top-btn');
-
-    // userEvent.click(perfil);
-
-    // expect(pathname).toBe('/perfil');
-
-    // const nomePerfil = screen.getByTestId('profile-email');
-
-    // expect(nomePerfil).toBeInTheDocument();
+    const email = screen.getByTestId('profile-email');
+    expect(email).toBeInTheDocument(false);
   });
 });
