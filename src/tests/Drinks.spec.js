@@ -13,7 +13,7 @@ describe('Testes para passar no requisito 1 componente Drinks', () => {
 
     const h1 = screen.getByRole('heading', {
       level: 1,
-      name: 'Drinks',
+      name: /Bebidas/i,
     });
     expect(h1).toBeInTheDocument();
   });
@@ -25,7 +25,7 @@ describe('Testes para passar no requisito 1 componente DrinksInProgress', () => 
 
     const h1 = screen.getByRole('heading', {
       level: 1,
-      name: 'DrinksInProgress',
+      name: /DrinksInProgress/i,
     });
     expect(h1).toBeInTheDocument();
   });
@@ -49,7 +49,7 @@ describe('Testes para passar no requisito 1 componente ExploreDrinks', () => {
 
     const h1 = screen.getByRole('heading', {
       level: 1,
-      name: 'ExploreDrinks',
+      name: 'Explore Drinks',
     });
     expect(h1).toBeInTheDocument();
   });
@@ -59,11 +59,11 @@ describe('Testes para passar no requisito 1 componente ExploreDrinksIngre', () =
   it('Verificando se existe um h1 no componente ExploreDrinksIngre', () => {
     renderWithRouter(<ExploreDrinksIngre />);
 
-    const h1 = screen.getByRole('heading', {
+    const h1Ingre = screen.getByRole('heading', {
       level: 1,
       name: 'ExploreDrinksIngre',
     });
-    expect(h1).toBeInTheDocument();
+    expect(h1Ingre).toBeInTheDocument();
   });
 });
 
