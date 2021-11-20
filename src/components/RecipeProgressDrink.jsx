@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import '../RecipeProgress.css';
 import { useHistory } from 'react-router-dom';
 import { SearchDrink } from '../services/SearchDrink';
 import { handleChecked, checkedDefault, checkedLocal } from '../global/checked';
@@ -7,6 +6,8 @@ import Btns from './buttons/Btns';
 import RevenuesContex from '../context/RevenuesContex';
 import { favorite, inProgressDrink,
   recipesDone, recipesMade } from '../global/localStorage';
+
+import '../css/Recipes-e-InProgress/index.css';
 
 function RecipeProgressDrink() {
   const [saveMade, setSaveMade] = useState([]);
@@ -100,40 +101,63 @@ function RecipeProgressDrink() {
   return (
     <main>
       <img
-        style={ { height: '20em' } }
+        className="img"
         data-testid="recipe-photo"
         src={ recipes[0].strDrinkThumb }
         alt={ recipes[0].strDrink }
       />
-      <h1 data-testid="recipe-title">{recipes[0].strDrink}</h1>
-      <Btns pathname={ id } name="bebidas" />
-      <span data-testid="recipe-category">{recipes[0].strCategory}</span>
-      <form>
-        {
-          ingrendients.map((ingredient, i) => (
-            <label
-              data-testid={ `${i}-ingredient-step` }
-              className={ checkedLocal(ingredient, saveMade, id) }
-              key={ i }
-              htmlFor={ ingredient[1] }
-            >
-              {ingredient[1]}
-              <input
-                type="checkbox"
-                name="ingredient"
-                id={ ingredient[1] }
-                value={ ingredient[1] }
-                onChange={ (e) => handleChecked(e) }
-                onClick={ handleClick }
-                defaultChecked={ checkedDefault(ingredient, saveMade, id, setAbility) }
-              />
-            </label>
-          ))
-        }
-        <div>
-          <span data-testid="instructions">{recipes[0].strInstructions}</span>
+      <div className="p-3 container-main">
+        <div className="d-flex mt-2">
+          <h5 className="col-9 title" data-testid="recipe-title">
+            {recipes[0].strDrink}
+          </h5>
+          <Btns pathname={ id } name="bebidas" />
         </div>
+        <span data-testid="recipe-category"><em>{recipes[0].strCategory}</em></span>
+        <br />
+        <br />
+        <span>
+          Ingredinets
+        </span>
+        <form className="information p-3">
+          {
+            ingrendients.map((ingredient, i) => (
+              <div key={ i } className="form-check">
+                <label
+                  data-testid={ `${i}-ingredient-step` }
+                  className={ `form-check-label ${checkedLocal(ingredient,
+                    saveMade, id)}` }
+                  htmlFor={ ingredient[1] }
+                >
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    name="ingredient"
+                    id={ ingredient[1] }
+                    value={ ingredient[1] }
+                    onChange={ (e) => handleChecked(e) }
+                    onClick={ handleClick }
+                    defaultChecked={ checkedDefault(ingredient,
+                      saveMade, id, setAbility) }
+                  />
+                  {ingredient[1]}
+                </label>
+              </div>
+            ))
+          }
+        </form>
+        <br />
+        <span>
+          Instructions
+        </span>
+        <p
+          className="information p-2"
+          data-testid="instructions"
+        >
+          {recipes[0].strInstructions}
+        </p>
         <button
+          className="btn btn-primary px-5 btn-margin"
           data-testid="finish-recipe-btn"
           type="button"
           disabled={ ability !== ingrendients.length }
@@ -141,7 +165,7 @@ function RecipeProgressDrink() {
         >
           Finalizar receita
         </button>
-      </form>
+      </div>
     </main>
   );
 }

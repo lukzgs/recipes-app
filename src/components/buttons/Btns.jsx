@@ -6,6 +6,8 @@ import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import { ONE_SECOND } from '../../global/constantesGlobais';
 
+import '../../css/btn-icon/index.css';
+
 function Btns({ pathname, name }) {
   const { copy, iconHeart, storageFavorites,
     recipes, setIconHeart, setCopy, clipboard } = useContext(RevenuesContex);
@@ -78,7 +80,12 @@ function Btns({ pathname, name }) {
           alt="heartIcon"
         />
       </button>
-      <p hidden={ copy }>Link copiado!</p>
+      <p
+        className="copy"
+        hidden={ copy }
+      >
+        Link copiado!
+      </p>
     </div>
   );
 }

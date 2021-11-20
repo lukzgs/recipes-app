@@ -2,8 +2,11 @@ import PropTypes from 'prop-types';
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import RevenuesContex from '../../context/RevenuesContex';
+
 import { ONE_SECOND } from '../../global/constantesGlobais';
+
 import shareIcon from '../../images/shareIcon.svg';
+
 import '../../css/cardsMade.css';
 import '../../css/btn.css';
 

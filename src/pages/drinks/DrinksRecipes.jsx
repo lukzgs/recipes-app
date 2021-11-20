@@ -6,6 +6,8 @@ import RevenuesContex from '../../context/RevenuesContex';
 import { TOTAL_CARDS } from '../../global/constantesGlobais';
 import { favorite } from '../../global/localStorage';
 
+import '../../css/Recipes-e-InProgress/index.css';
+
 function DrinksRecipes() {
   const [recomendationFoods, setRecomendationFoods] = useState([]);
   const [drinkId, setDrinkId] = useState('');
@@ -62,51 +64,80 @@ function DrinksRecipes() {
   };
 
   return (
-    recipes.map((drink) => (
-      <main key={ drink.idDrink }>
-        <img
-          style={ { height: '20em' } }
-          src={ drink.strDrinkThumb }
-          alt={ drink.strDrink }
-          data-testid="recipe-photo"
-        />
-        <p data-testid="recipe-title">{ drink.strDrink }</p>
-        <Btns pathname={ idReceita } name="bebidas" />
-        <p data-testid="recipe-category">{ drink.strAlcoholic }</p>
-        <ul>
-          { ingrendients.map((ingre, index) => (
-            <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-              {`${ingre} - ${measures[index] === undefined ? '' : measures[index]}`}
-            </li>))}
-        </ul>
-        <p data-testid="instructions">{drink.strInstructions}</p>
-        <div className="scroll flex">
-          {recomendationFoods.slice(0, TOTAL_CARDS).map((recom, index) => (
-            <div
-              key={ recom.idMeal }
-              data-testid={ `${index}-recomendation-card` }
-            >
-              <img
-                style={ { height: '5em' } }
-                src={ recom.strMealThumb }
-                alt={ recom.strMeal }
-              />
-              <p data-testid={ `${index}-recomendation-title` }>
-                { recom.strMeal }
-              </p>
+    <div>
+      {recipes.map((drink) => (
+        <main key={ drink.idDrink }>
+          <img
+            className="img"
+            src={ drink.strDrinkThumb }
+            alt={ drink.strDrink }
+            data-testid="recipe-photo"
+          />
+          <div className="p-3 container-main">
+            <div className="d-flex mt-2">
+              <h5
+                className="col-9 title"
+                data-testid="recipe-title"
+              >
+                { drink.strDrink }
+              </h5>
+              <Btns pathname={ idReceita } name="bebidas" />
             </div>
-          ))}
-        </div>
-        <button
-          style={ { position: 'fixed', bottom: '0px' } }
-          data-testid="start-recipe-btn"
-          type="button"
-          onClick={ handleClickStart }
-        >
-          { ability <= ingrendients.length ? 'Continuar Receita' : 'Iniciar Receita' }
-        </button>
-      </main>
-    ))
+            <span data-testid="recipe-category"><em>{ drink.strAlcoholic }</em></span>
+            <br />
+            <br />
+            <span>
+              Ingredinets
+            </span>
+            <ul className="information py-2">
+              { ingrendients.map((ingre, index) => (
+                <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
+                  {`${ingre} - ${measures[index] === undefined ? '' : measures[index]}`}
+                </li>))}
+            </ul>
+            <span>
+              Instructions
+            </span>
+            <p
+              className="information p-2"
+              data-testid="instructions"
+            >
+              {drink.strInstructions}
+            </p>
+            <br />
+            <span>
+              Recommendations
+            </span>
+            <div className="scroll flex  mb-5">
+              {recomendationFoods.slice(0, TOTAL_CARDS).map((recom, index) => (
+                <div
+                  className="recomendation p-1 m-2"
+                  key={ recom.idMeal }
+                  data-testid={ `${index}-recomendation-card` }
+                >
+                  <span className="p-2" data-testid={ `${index}-recomendation-title` }>
+                    { recom.strMeal }
+                  </span>
+                  <img
+                    className="p-1 img-recomendation"
+                    src={ recom.strMealThumb }
+                    alt={ recom.strMeal }
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </main>
+      ))}
+      <button
+        className="btn btn-primary px-5 btn-fixed"
+        data-testid="start-recipe-btn"
+        type="button"
+        onClick={ handleClickStart }
+      >
+        { ability <= ingrendients.length ? 'Continuar Receita' : 'Iniciar Receita' }
+      </button>
+    </div>
   );
 }
 

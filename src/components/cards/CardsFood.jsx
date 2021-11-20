@@ -5,23 +5,34 @@ import { MAX_LENGTH } from '../../global/constantesGlobais';
 
 function CardsFood() {
   const { revenues } = useContext(RevenuesContex);
-  console.log(revenues);
+
   const revenuesTwelve = revenues.filter((revenue, index) => index <= MAX_LENGTH);
 
   return (
-    revenuesTwelve.map(({ idMeal, strMealThumb, strMeal }, index) => (
-      <Link to={ `/comidas/${idMeal}` } key={ idMeal }>
-        <div data-testid={ `${index}-recipe-card` }>
-          <img
-            data-testid={ `${index}-card-img` }
-            style={ { height: '5em' } }
-            src={ strMealThumb }
-            alt={ strMeal }
-          />
-          <p data-testid={ `${index}-card-name` }>{strMeal}</p>
-        </div>
-      </Link>
-    ))
+    <div className="row ml-3 mt-3 mb-5">
+      {revenuesTwelve.map(({ idMeal, strMealThumb, strMeal }, index) => (
+        <Link className="col-5" key={ idMeal } to={ `/comidas/${idMeal}` }>
+          <div
+            className="card mb-2"
+            style={ { width: '9rem' } }
+            data-testid={ `${index}-recipe-card` }
+          >
+            <span
+              className="ml-2 mt-2"
+              data-testid={ `${index}-card-name` }
+            >
+              {strMeal}
+            </span>
+            <img
+              className="card-img-bottom p-2"
+              data-testid={ `${index}-card-img` }
+              src={ strMealThumb }
+              alt={ strMeal }
+            />
+          </div>
+        </Link>
+      ))}
+    </div>
   );
 }
 

@@ -18,27 +18,32 @@ function RecipesMade() {
   return (
     <div>
       <Header title="Receitas Feitas" />
-      <button
-        data-testid="filter-by-all-btn"
-        type="button"
-        onClick={ handleClickAll }
-      >
-        All
-      </button>
-      <button
-        data-testid="filter-by-food-btn"
-        type="button"
-        onClick={ handleClickFood }
-      >
-        Food
-      </button>
-      <button
-        data-testid="filter-by-drink-btn"
-        type="button"
-        onClick={ handleClickDrink }
-      >
-        Drinks
-      </button>
+      <div className="d-flex justify-content-center my-2">
+        <button
+          className="btn btn-primary mr-1 px-4"
+          data-testid="filter-by-all-btn"
+          type="button"
+          onClick={ handleClickAll }
+        >
+          All
+        </button>
+        <button
+          className="btn btn-primary mr-1 px-4"
+          data-testid="filter-by-food-btn"
+          type="button"
+          onClick={ handleClickFood }
+        >
+          Food
+        </button>
+        <button
+          className="btn btn-primary px-4"
+          data-testid="filter-by-drink-btn"
+          type="button"
+          onClick={ handleClickDrink }
+        >
+          Drinks
+        </button>
+      </div>
       <CardsMade filter={ filter } />
     </div>
   );

@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
+import '../css/profile/index.css';
+
 function Profile() {
   const [user, setUser] = useState('');
   const history = useHistory();
@@ -25,29 +27,33 @@ function Profile() {
   return (
     <div>
       <Header title="Perfil" />
-      <h1>Profile</h1>
-      <p data-testid="profile-email">{ user }</p>
-      <button
-        type="button"
-        data-testid="profile-done-btn"
-        onClick={ () => history.push('/receitas-feitas') }
-      >
-        Receitas Feitas
-      </button>
-      <button
-        type="button"
-        data-testid="profile-favorite-btn"
-        onClick={ () => history.push('/receitas-favoritas') }
-      >
-        Receitas Favoritas
-      </button>
-      <button
-        type="button"
-        data-testid="profile-logout-btn"
-        onClick={ handleClick }
-      >
-        Sair
-      </button>
+      <div className="d-flex align-items-center flex-column bd-highlight mb-3 center-top">
+        <h3 data-testid="profile-email">{ user }</h3>
+        <button
+          type="button"
+          className="my-5 btn btn-primary larg-btn"
+          data-testid="profile-done-btn"
+          onClick={ () => history.push('/receitas-feitas') }
+        >
+          Receitas Feitas
+        </button>
+        <button
+          type="button"
+          className="mb-5 btn btn-primary larg-btn"
+          data-testid="profile-favorite-btn"
+          onClick={ () => history.push('/receitas-favoritas') }
+        >
+          Receitas Favoritas
+        </button>
+        <button
+          type="button"
+          className="mb-5 btn btn-primary larg-btn"
+          data-testid="profile-logout-btn"
+          onClick={ handleClick }
+        >
+          Sair
+        </button>
+      </div>
       <Footer />
     </div>
   );

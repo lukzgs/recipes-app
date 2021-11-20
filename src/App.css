@@ -66,14 +66,3 @@
     transform: rotate(-10deg);
   }
 }
-
-.scroll {
-  height: 150px;
-  overflow: auto;
-  width: 150px;
-}
-
-.flex {
-  display: flex;
-  flex-direction: row;
-}

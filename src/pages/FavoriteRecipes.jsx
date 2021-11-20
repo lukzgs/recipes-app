@@ -18,28 +18,32 @@ function FavoriteRecipes() {
   return (
     <div>
       <Header title="Receitas Favoritas" />
-      <h1>FavoriteRecipes</h1>
-      <button
-        data-testid="filter-by-all-btn"
-        type="button"
-        onClick={ handleClickAll }
-      >
-        All
-      </button>
-      <button
-        data-testid="filter-by-food-btn"
-        type="button"
-        onClick={ handleClickFood }
-      >
-        Food
-      </button>
-      <button
-        data-testid="filter-by-drink-btn"
-        type="button"
-        onClick={ handleClickDrink }
-      >
-        Drinks
-      </button>
+      <div className="d-flex justify-content-center my-2">
+        <button
+          data-testid="filter-by-all-btn"
+          className="btn btn-primary mr-1 px-4"
+          type="button"
+          onClick={ handleClickAll }
+        >
+          All
+        </button>
+        <button
+          data-testid="filter-by-food-btn"
+          className="btn btn-primary mr-1 px-4"
+          type="button"
+          onClick={ handleClickFood }
+        >
+          Food
+        </button>
+        <button
+          data-testid="filter-by-drink-btn"
+          className="btn btn-primary px-4"
+          type="button"
+          onClick={ handleClickDrink }
+        >
+          Drinks
+        </button>
+      </div>
       <CardsFavorites filter={ filter } />
     </div>
   );
