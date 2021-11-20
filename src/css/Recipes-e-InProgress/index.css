@@ -1,24 +1,24 @@
 .img {
-  width: 22.5em;
   position: absolute;
   top: -7em;
+  width: 22.5em;
 }
 
 .container-main {
   background-color: grey;
+  border-radius: 2em;
   position: absolute;
   top: 10em;
-  border-radius: 2em 0 0 0;
 }
 
 .title {
-  padding: 0em;
-  margin: 0em;
+  margin: 0;
+  padding: 0;
 }
 
 .information {
   background-color: white;
-  border-radius: 1em
+  border-radius: 1em;
 }
 
 .recomendation {
@@ -31,9 +31,9 @@
 }
 
 .btn-fixed {
-  position: fixed;
   bottom: 1em;
   margin-left: 4em;
+  position: fixed;
 }
 
 .btn-margin {
