@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import { SearchDrink } from '../../services/SearchDrink';
+import RevenuesContex from '../../context/RevenuesContex';
 
 import '../../css/explorer/index.css';
 
 export default function ExploreFoodIngredients() {
   const MAX_LENGTH = 12;
   const [data, setData] = useState([]);
+  const { setRevenues } = useContext(RevenuesContex);
+  const history = useHistory();
 
   const fetchIngredients = async () => {
     const resultApi = await SearchDrink('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
@@ -17,30 +21,42 @@ export default function ExploreFoodIngredients() {
 
   useEffect(() => { fetchIngredients(); }, []);
 
+  const handleCLick = async (strIngredient) => {
+    const response = await SearchDrink(
+      `https://www.themealdb.com/api/json/v1/1/filter.php?i=${strIngredient}`,
+    );
+    setRevenues(response.meals);
+    history.push('/comidas');
+  };
+
   return (
     <section>
       <Header title="Explorar Ingredientes" />
       <main className="flex mb-5 pl-2 flex-wrap">
-        { data.map((ingre, index) => (
-          <section
-            className="recomendation p-1 m-2"
-            data-testid={ `${index}-ingredient-card` }
+        { data.map(({ strIngredient }, index) => (
+          <button
             key={ index }
+            type="button"
+            onClick={ () => handleCLick(strIngredient) }
           >
-            <span
-              className="p-2"
-              data-testid={ `${index}-card-name` }
+            <section
+              className="recomendation p-1 m-2"
+              data-testid={ `${index}-ingredient-card` }
             >
-              { ingre.strIngredient || ingre.strIngredient1 }
-            </span>
-            <br />
-            <img
-              className="p-1 m-1 img-recomendation"
-              data-testid={ `${index}-card-img` }
-              src={ `https://www.themealdb.com/images/ingredients/${ingre.strIngredient || ingre.strIngredient1}-Small.png ` }
-              alt={ ingre.strIngredient || ingre.strIngredient1 }
-            />
-          </section>
+              <span
+                className="p-2"
+                data-testid={ `${index}-card-name` }
+              >
+                { strIngredient }
+              </span>
+              <img
+                className="p-1 m-1 img-recomendation"
+                data-testid={ `${index}-card-img` }
+                src={ `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png ` }
+                alt={ strIngredient }
+              />
+            </section>
+          </button>
         )) }
       </main>
       <Footer />
