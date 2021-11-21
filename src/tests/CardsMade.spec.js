@@ -1,6 +1,5 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { screen, fireEvent } from '@testing-library/react';
 import renderWithRouter from './utils/renderWithRouter';
 import App from '../App';
 import RevenuesContex from '../context/RevenuesContex';
@@ -27,6 +26,9 @@ const mockCardsMade = [{
   type: 'Collins Glass',
 },
 ];
+
+const TEST_ID_FOOD = '0-horizontal-name';
+const TEST_ID_DRINK = '1-horizontal-name';
 
 describe('Cobertura do componente CardsMade', () => {
   beforeEach(() => {
@@ -55,10 +57,10 @@ describe('Cobertura do componente CardsMade', () => {
       </RevenuesContex.Provider>,
     );
 
-    const card0 = screen.getByTestId('0-horizontal-name');
-    const card1 = screen.getByTestId('1-horizontal-name');
-    expect(card0).toBeInTheDocument();
-    expect(card1).toBeInTheDocument();
+    const cardFood = screen.getByTestId(TEST_ID_FOOD);
+    const cardDrink = screen.getByTestId(TEST_ID_DRINK);
+    expect(cardFood).toBeInTheDocument();
+    expect(cardDrink).toBeInTheDocument();
   });
 
   it('Verificando se o botão de filtro food esta funcionando', () => {
@@ -69,10 +71,33 @@ describe('Cobertura do componente CardsMade', () => {
         <RecipesMade />
       </RevenuesContex.Provider>,
     );
+    const cardFood = screen.getByTestId(TEST_ID_FOOD);
+    const cardDrink = screen.getByTestId(TEST_ID_DRINK);
+    const btnFood = screen.getByTestId('filter-by-food-btn');
 
+    fireEvent.click(btnFood);
+    expect(cardFood).toBeInTheDocument();
+    expect(cardDrink).not.toBeInTheDocument();
   });
 
-  it('', () => {});
+  it('Verificando se o botão de filtro drink esta funcionando', () => {
+    localStorage.setItem('doneRecipes', JSON.stringify(mockCardsMade));
+
+    renderWithRouter(
+      <RevenuesContex.Provider value>
+        <RecipesMade />
+      </RevenuesContex.Provider>,
+    );
+    const cardFood = screen.getByTestId(TEST_ID_FOOD);
+    const cardDrink = screen.getByTestId(TEST_ID_DRINK);
+    const btnDrink = screen.getByTestId('filter-by-drink-btn');
+    const btnAll = screen.getByTestId('filter-by-all-btn');
+
+    fireEvent.click(btnDrink);
+    expect(cardFood).not.toBeInTheDocument();
+    expect(cardDrink).toBeInTheDocument();
+    fireEvent.click(btnAll);
+  });
   it('', () => {});
   it('', () => {});
   it('', () => {});
