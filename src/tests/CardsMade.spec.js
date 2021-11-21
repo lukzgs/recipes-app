@@ -98,7 +98,4 @@ describe('Cobertura do componente CardsMade', () => {
     expect(cardDrink).toBeInTheDocument();
     fireEvent.click(btnAll);
   });
-  it('', () => {});
-  it('', () => {});
-  it('', () => {});
 });
