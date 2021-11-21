@@ -35,9 +35,10 @@ function ExploreAreaFood() {
   return (
     <div>
       <Header title="Explorar Origem" />
-      <div data-testid="explore-food">
-        <h1>Explore Area Food</h1>
+      <div className="flex justify-content-center" data-testid="explore-food">
         <select
+          className="form-select mt-3"
+          style={ { width: '15em' } }
           data-testid="explore-by-area-dropdown"
           onChange={ (e) => setNameArea(e.target.value) }
         >

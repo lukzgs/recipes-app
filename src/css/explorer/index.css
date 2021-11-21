@@ -1,0 +1,19 @@
+.larg-btn {
+  height: 3em;
+  width: 18em;
+}
+
+.center-top {
+  margin-top: 5em;
+}
+
+.img-recomendation {
+  background-color: azure;
+  border-radius: 1em;
+  height: 8em;
+}
+
+.recomendation {
+  background-color: gray;
+  border-radius: 1em;
+}

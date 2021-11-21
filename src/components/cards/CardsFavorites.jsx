@@ -9,8 +9,8 @@ import shareIcon from '../../images/shareIcon.svg';
 
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
-import '../../css/cardsMade.css';
-import '../../css/btn.css';
+import '../../css/cards-made/index.css';
+import '../../css/btn-border-none/index.css';
 
 function CardsFavorites({ filter }) {
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);

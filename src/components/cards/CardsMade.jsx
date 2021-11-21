@@ -7,8 +7,8 @@ import { ONE_SECOND } from '../../global/constantesGlobais';
 
 import shareIcon from '../../images/shareIcon.svg';
 
-import '../../css/cardsMade.css';
-import '../../css/btn.css';
+import '../../css/cards-made/index.css';
+import '../../css/btn-border-none/index.css';
 
 function CardsMade({ filter }) {
   const [finishedRecipes, setFinishedRecipes] = useState([]);
@@ -112,7 +112,7 @@ function CardsMade({ filter }) {
             />
           </Link>
           <div className="p-3">
-            <div className="d-flex flex-row">
+            <div className="d-flex">
               <span
                 className="text-horizontal"
                 data-testid={ `${index}-horizontal-top-text` }
@@ -122,7 +122,7 @@ function CardsMade({ filter }) {
               <button
                 onClick={ () => handleClickShare('bebidas', recipe.id) }
                 type="button"
-                className=" ml-3 border-none"
+                className="ml-3 border-none"
               >
                 <img
                   data-testid={ `${index}-horizontal-share-btn` }
@@ -131,7 +131,12 @@ function CardsMade({ filter }) {
                 />
               </button>
             </div>
-            <p hidden={ copy }>Link copiado!</p>
+            <p
+              className="font"
+              hidden={ copy }
+            >
+              Link copiado!
+            </p>
             <Link to={ `bebidas/${recipe.id}` }>
               <h5 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h5>
             </Link>

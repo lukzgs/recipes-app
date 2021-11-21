@@ -4,6 +4,8 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import { SwitchDrink } from '../../services/SearchDrink';
 
+import '../../css/explorer/index.css';
+
 function ExploreDrinks() {
   const history = useHistory();
 
@@ -15,10 +17,13 @@ function ExploreDrinks() {
   return (
     <div>
       <Header title="Explorar Bebidas" />
-      <div data-testid="explore-drinks">
-        <h1>Explore Drinks</h1>
+      <div
+        className="d-flex align-items-center flex-column bd-highlight mb-3 center-top"
+        data-testid="explore-drinks"
+      >
         <Link to="/explorar/bebidas/ingredientes">
           <button
+            className="my-5 btn btn-primary larg-btn"
             type="submit"
             data-testid="explore-by-ingredient"
           >
@@ -28,6 +33,7 @@ function ExploreDrinks() {
 
         <Link to="/explorar/bebidas">
           <button
+            className="my-5 btn btn-primary larg-btn"
             type="submit"
             data-testid="explore-surprise"
             onClick={ handleClickRandom }

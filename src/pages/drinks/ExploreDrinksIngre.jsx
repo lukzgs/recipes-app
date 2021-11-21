@@ -3,6 +3,8 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import { SearchDrink } from '../../services/SearchDrink';
 
+import '../../css/explorer/index.css';
+
 function ExploreDrinksIngre() {
   const MAX_LENGTH = 12;
   const [data, setData] = useState([]);
@@ -18,15 +20,22 @@ function ExploreDrinksIngre() {
   return (
     <section>
       <Header title="Explorar Ingredientes" />
-      <main>
+      <main className="flex mb-5 pl-2 flex-wrap">
         { data.map((ingre, index) => (
-          <section data-testid={ `${index}-ingredient-card` } key={ index }>
-            <h1
+          <section
+            className="recomendation p-1 m-2"
+            data-testid={ `${index}-ingredient-card` }
+            key={ index }
+          >
+            <span
+              className="p-2"
               data-testid={ `${index}-card-name` }
             >
               { ingre.strIngredient || ingre.strIngredient1 }
-            </h1>
+            </span>
+            <br />
             <img
+              className="p-1 m-1 img-recomendation"
               data-testid={ `${index}-card-img` }
               src={ `https://www.thecocktaildb.com/images/ingredients/${ingre.strIngredient || ingre.strIngredient1}-Small.png ` }
               alt={ ingre.strIngredient || ingre.strIngredient1 }
