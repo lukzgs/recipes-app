@@ -13,7 +13,6 @@ import '../../css/btn-border-none/index.css';
 function CardsMade({ filter }) {
   const [finishedRecipes, setFinishedRecipes] = useState([]);
   const [filteRecipes, setFilterRecipes] = useState([]);
-
   const { setCopy, copy, clipboard } = useContext(RevenuesContex);
 
   useEffect(() => {
