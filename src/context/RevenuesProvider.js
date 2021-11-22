@@ -20,9 +20,6 @@ function RevenuesProvider({ children }) {
   const [iconHeart, setIconHeart] = useState(true);
   const [storageFavorites, setStorageFavorites] = useState([]);
   const [recipes, setRecipes] = useState([]);
-  // usado para ingredientes
-  // const [mealsByArea, setMealsByArea] = useState([]);
-  // const [mealsByIngredient, setmealsByIngredient] = useState([]);
 
   const value = {
     revenues,
@@ -48,10 +45,6 @@ function RevenuesProvider({ children }) {
     recipes,
     setRecipes,
     clipboard,
-    // mealsByArea,
-    // setMealsByArea,
-    // mealsByIngredient,
-    // setmealsByIngredient,
   };
 
   useEffect(() => {
