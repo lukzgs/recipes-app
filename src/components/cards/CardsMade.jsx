@@ -8,7 +8,6 @@ import shareIcon from '../../images/shareIcon.svg';
 function CardsMade({ filter }) {
   const [finishedRecipes, setFinishedRecipes] = useState([]);
   const [filteRecipes, setFilterRecipes] = useState([]);
-
   const { setCopy, copy, clipboard } = useContext(RevenuesContex);
 
   useEffect(() => {
