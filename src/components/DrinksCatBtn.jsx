@@ -33,7 +33,7 @@ function DrinksCatBtn() {
     <form className="mt-2 col-16 mx-auto">
       { drinks.map(({ strCategory }, i) => (
         <button
-          className=" ml-1 mb-1 btn-sm btn btn-primary"
+          className=" ml-1 mb-1 btn-sm btn btn-dark"
           style={ { width: '11.5em', fontSize: '10px' } }
           key={ i }
           type="button"
@@ -46,7 +46,7 @@ function DrinksCatBtn() {
         </button>
       ))}
       <button
-        className=" ml-1 mb-1 btn-sm btn btn-primary"
+        className=" ml-1 mb-1 btn-sm btn btn-dark"
         style={ { width: '11.5em', fontSize: '10px' } }
         type="button"
         id="All-category-btn"

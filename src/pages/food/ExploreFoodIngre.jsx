@@ -35,6 +35,7 @@ export default function ExploreFoodIngredients() {
       <main className="flex mb-5 pl-2 flex-wrap">
         { data.map(({ strIngredient }, index) => (
           <button
+            style={ { border: 'none' } }
             key={ index }
             type="button"
             onClick={ () => handleCLick(strIngredient) }
@@ -43,12 +44,13 @@ export default function ExploreFoodIngredients() {
               className="recomendation p-1 m-2"
               data-testid={ `${index}-ingredient-card` }
             >
-              <span
+              <p
                 className="p-2"
+                style={ { fontSize: '12px' } }
                 data-testid={ `${index}-card-name` }
               >
                 { strIngredient }
-              </span>
+              </p>
               <img
                 className="p-1 m-1 img-recomendation"
                 data-testid={ `${index}-card-img` }

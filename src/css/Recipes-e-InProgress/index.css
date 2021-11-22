@@ -1,24 +1,33 @@
+.container-main {
+  background-image: linear-gradient(to right, #a882ff, #689aff);
+  border-radius: 2em;
+  opacity: 0.85;
+  position: absolute;
+  top: 10em;
+}
+
 .img {
   position: absolute;
   top: -7em;
   width: 22.5em;
 }
 
-.container-main {
-  background-color: grey;
-  border-radius: 2em;
-  position: absolute;
-  top: 10em;
+.algumNome {
+  color: black;
+  font-size: 23px;
 }
 
 .title {
+  color: black;
+  font-size: 30px;
   margin: 0;
   padding: 0;
 }
 
 .information {
-  background-color: white;
+  background-color: gainsboro;
   border-radius: 1em;
+  color: black;
 }
 
 .recomendation {

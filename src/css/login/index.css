@@ -1,5 +1,6 @@
 .main-login {
   background-color: rgba(0, 0, 0, 0.5);
+  background-image: linear-gradient(to right, #a882ff, #689aff);
   border-radius: 1em;
   color: white;
   left: 50%;

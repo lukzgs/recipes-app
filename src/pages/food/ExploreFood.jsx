@@ -24,7 +24,7 @@ function ExploreFood() {
       >
         <Link to="/explorar/comidas/ingredientes">
           <button
-            className="my-5 btn btn-primary larg-btn"
+            className="my-5 btn btn-dark larg-btn"
             type="submit"
             data-testid="explore-by-ingredient"
           >
@@ -33,7 +33,7 @@ function ExploreFood() {
         </Link>
         <Link to="/explorar/comidas/area">
           <button
-            className="my-5 btn btn-primary larg-btn"
+            className="my-5 btn btn-dark larg-btn"
             type="submit"
             data-testid="explore-by-area"
           >
@@ -42,7 +42,7 @@ function ExploreFood() {
         </Link>
         <Link to="/explorar/comidas/">
           <button
-            className="my-5 btn btn-primary larg-btn"
+            className="my-5 btn btn-dark larg-btn"
             type="submit"
             data-testid="explore-surprise"
             onClick={ handleClickRandom }

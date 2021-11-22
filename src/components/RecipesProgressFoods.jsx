@@ -150,7 +150,7 @@ function RecipeProgressFoods() {
           {recipes[0].strInstructions}
         </p>
         <button
-          className="btn btn-primary px-5 btn-margin"
+          className="btn btn-dark px-5 btn-margin"
           data-testid="finish-recipe-btn"
           type="button"
           disabled={ ability !== ingrendients.length }

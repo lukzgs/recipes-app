@@ -10,7 +10,9 @@ function Header({ title }) {
   const [change, setChange] = useState('');
   const { search, setSearch } = useContext(RevenuesContex);
 
-  if (title === 'Comidas' || title === 'Bebidas' || title === 'Explorar Origem') {
+  if (title === 'Comidas' || title === 'Bebidas'
+    || title === 'Explorar Origem' || title === 'Explorar'
+      || title === 'Explorar Comidas' || title === 'Explorar Ingredientes') {
     if (search === true) {
       return (
         <header
@@ -24,7 +26,12 @@ function Header({ title }) {
               data-testid="profile-top-btn"
             />
           </Link>
-          <h4 style={ { marginTop: '0.5rem' } } data-testid="page-title">{title}</h4>
+          <h4
+            style={ { marginTop: '0.5rem', color: 'white' } }
+            data-testid="page-title"
+          >
+            {title}
+          </h4>
           <button
             style={ { backgroundColor: 'Transparent', border: 'none' } }
             type="button"

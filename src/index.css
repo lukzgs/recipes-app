@@ -16,9 +16,10 @@ code {
   display: flex;
   justify-content: space-around;
   background-color:gray;
+  background-image: linear-gradient(to right, #a882ff, #689aff);
   padding: 10px;
 }
 
 .header {
-  background-color:gray;
+  background-image: linear-gradient(to right, #a882ff, #689aff);
 }

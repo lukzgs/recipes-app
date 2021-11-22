@@ -39,7 +39,7 @@ export default function Login() {
           onChange={ ({ target }) => setPassword(target.value) }
         />
         <button
-          className="btn btn-primary px-5 mx-5"
+          className="btn btn-dark px-5 mx-5"
           type="submit"
           data-testid="login-submit-btn"
           disabled={

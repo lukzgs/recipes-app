@@ -84,8 +84,8 @@ function FoodRecipes() {
             <span data-testid="recipe-category"><em>{food.strCategory}</em></span>
             <br />
             <br />
-            <span>
-              Ingredinets
+            <span className="algumNome">
+              IngrediNETS
             </span>
             <ul className="information py-2">
               { ingrendients.map((ingre, index) => (
@@ -93,7 +93,7 @@ function FoodRecipes() {
                   {`${ingre} - ${measures[index]}`}
                 </li>))}
             </ul>
-            <span>
+            <span className="algumNome">
               Instructions
             </span>
             <p
@@ -137,7 +137,7 @@ function FoodRecipes() {
         </main>
       ))}
       <button
-        className="btn btn-primary px-5 btn-fixed"
+        className="btn btn-dark px-5 btn-fixed"
         data-testid="start-recipe-btn"
         type="button"
         onClick={ handleClickStart }

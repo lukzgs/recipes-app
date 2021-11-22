@@ -52,3 +52,17 @@ export const mockFoodRecomendations = [
   '747',
   '252',
 ];
+
+export const mockAreaFoodExplore = [
+  'Corba',
+  'Burek',
+  'Kumpir',
+  'Tamiya',
+  'Dal fry',
+  'Poutine',
+  'Lasagne',
+  'Timbts',
+  'Wontons',
+  'Big Mac',
+  'Koshari',
+];

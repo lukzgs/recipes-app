@@ -34,7 +34,7 @@ export default function MealsCatBtn() {
     <form className="mt-3 col-13 mx-auto">
       { meals.map(({ strCategory }, index) => (
         <button
-          className=" ml-3 mb-2 btn-sm btn btn-primary"
+          className=" ml-3 mb-2 btn-sm btn btn-dark"
           style={ { width: '7em' } }
           key={ index }
           type="button"
@@ -47,7 +47,7 @@ export default function MealsCatBtn() {
         </button>
       ))}
       <button
-        className=" ml-3 mb-2 btn-sm btn btn-primary"
+        className=" ml-3 mb-2 btn-sm btn btn-dark"
         style={ { width: '7em' } }
         type="button"
         id="All-category-btn"

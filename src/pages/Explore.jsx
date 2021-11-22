@@ -8,11 +8,11 @@ import '../css/explorer/index.css';
 function Explore() {
   return (
     <div>
-      <Header title="Explorar" />
+      <Header title="Explorar" className="titleExplore" />
       <div className="d-flex align-items-center flex-column bd-highlight mb-3 center-top">
         <Link to="/explorar/comidas">
           <button
-            className="my-5 btn btn-primary larg-btn"
+            className="my-5 btn btn-dark larg-btn"
             type="submit"
             data-testid="explore-food"
           >
@@ -21,7 +21,7 @@ function Explore() {
         </Link>
         <Link to="/explorar/bebidas">
           <button
-            className="mb-5 btn btn-primary larg-btn"
+            className="mb-5 btn btn-dark larg-btn"
             type="submit"
             data-testid="explore-drinks"
           >
