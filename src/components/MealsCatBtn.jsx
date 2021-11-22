@@ -8,9 +8,6 @@ export default function MealsCatBtn() {
   const { mealsCat, setRevenues, revenues } = useContext(RevenuesContex);
   const [toggle, setToggle] = useState('');
   const [unToggle, setUnToggle] = useState([]);
-  // os comments abaixo são para evitar que o usuário aperte o botão mais de uma vez
-  // e chame de novo a api com o conteúdo com que já foi chamado anteriormente.
-  // const [previousFood, setPreviousFood] = useState([]);
 
   const eventHandler = async ({ target }) => {
     const { value } = target;
@@ -20,13 +17,9 @@ export default function MealsCatBtn() {
       setRevenues(unToggle);
       setToggle('');
     } else {
-      // if (value === response.meals) {
-      //   setRevenues(previousFood);
-      // }
       const response = await SearchFood(
         `https://www.themealdb.com/api/json/v1/1/filter.php?c=${value}`,
       );
-      // setPreviousFood(response.meals);
       setUnToggle(revenues);
       setRevenues(response.meals);
     }
