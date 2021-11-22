@@ -9,8 +9,6 @@ export default function MealsCatBtn() {
   const [unToggle, setUnToggle] = useState([]);
 
   const { mealsCat, setRevenues, revenues, search } = useContext(RevenuesContex);
-  // os comments abaixo são para evitar que o usuário aperte o botão mais de uma vez
-  // e chame de novo a api com o conteúdo com que já foi chamado anteriormente.
 
   const eventHandler = async ({ target }) => {
     const { value } = target;

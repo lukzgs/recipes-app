@@ -5,10 +5,6 @@ const MAX_LENGTH = 4;
 
 export function MealsCatBtn() {
   const { mealsCat } = useContext(RevenuesContex);
-  // const mealsFilter = mealsCat.filter((meal, category, index) => {
-  //   const
-  //   index <= MAX_LENGTH && category === { strCategory } ;
-  // });
 
   const meals = mealsCat.filter((meal, index) => index <= MAX_LENGTH);
 
@@ -36,7 +32,6 @@ export function DrinksCatBtn() {
         <button
           type="button"
           data-testid={ `${strCategory}-category-filter` }
-          // onClick={  }
         >
           { strCategory }
         </button>
