@@ -1,5 +1,5 @@
 # Boas vindas ao repositório do App de Receitas!
- - Esse projeto foi desenvolvido durante o curso de desenvolvimento web @ Trybe em conjunto com @msconrado, @wltonlopes, @Gabrielfr-bld, @AlineCarolina e @Monnylly
+ - Esse projeto foi desenvolvido durante o curso de desenvolvimento web @ Trybe em conjunto com [@msconrado](https://github.com/msconrado), [@wltonlopes](https://github.com/wltonlopes), [@Gabrielfr-bld](https://github.com/Gabrielfr-bld), [@AlineCarolina](https://github.com/AlineCarolina) e [@Monnylly](https://github.com/Monnylly)
 
  # Habilidades desenvolvidas no projeto
 
@@ -15,9 +15,6 @@ Neste projeto será possível ver, buscar, filtrar, favoritar e acompanhar o pro
 A base de dados serão 2 APIs distintas, uma para comidas e outra para bebidas.
 
 O layout tem como foco dispositivos móveis, então todos os protótipos vão estar desenvolvidos em telas menores.
-
-
-![image](https://res.cloudinary.com/drdpedroso/image/upload/c_scale,w_400/v1575815877/Screenshot_2019-12-08_at_11.37.25_kzt7rl.png)
 
 ## Desenvolvimento
 1. Clone o repositório
