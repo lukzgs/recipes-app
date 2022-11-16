@@ -1,5 +1,5 @@
 # Boas vindas ao repositório do App de Receitas!
- - Esse projeto foi desenvolvido durante o curso de desenvolvimento web @ Trybe
+ - Esse projeto foi desenvolvido durante o curso de desenvolvimento web @ Trybe em conjunto com @msconrado, @wltonlopes, @Gabrielfr-bld, @AlineCarolina e @Monnylly
 
  # Habilidades desenvolvidas no projeto
 
