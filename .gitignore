@@ -24,7 +24,8 @@ yarn-error.log*
 
 .vscode
 
-
 cypress/screenshots/
 cypress/videos/
 cypress/reports
+
+GROUP.txt
